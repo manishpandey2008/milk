@@ -1,0 +1,575 @@
+<?php
+
+namespace App\Http\Controllers\Society;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Registration;
+use App\Models\Model\Create\Farmer;
+use App\Models\Model\Plant\Plantproducts;
+use App\Models\Model\Society\Orderdetails;
+use App\Models\Model\Society\Societystorage;
+use App\Models\Model\Society\Societysell;
+use DB;
+class SocietyController extends Controller
+{
+    public function home(){
+
+     	$work_role=session('role_of_work');
+     	$id_of_user=session('id_of_user');
+     	$users=Registration::all()->where('user_id',$id_of_user)->first();
+
+     	return view('society.societyHome',[
+     		'user'=>$users,
+     		'role'=>$work_role,
+     	]);
+     }
+
+     public function registration($id,$role){
+     	$users=Registration::all()->where('user_id',$id)->first();
+
+     	return view('society.registration',[
+     		'user'=>$users,
+     		'role'=>$role,
+     		'user_id'=>$id,
+     		'error'=>0,
+     	]);
+     }
+
+     public function otpverification($id,$role){
+
+    
+     			$user=new Registration;
+
+     			$plant_id=Registration::all()->where('user_id',$id)->pluck('plant_id');
+     			session(['plant_id' => $plant_id[0]]);
+     			$bmc_id=Registration::all()->where('user_id',$id)->pluck('bmc_id');
+     			session(['bmc_id' => $bmc_id[0]]);
+
+	     		$count=Registration::all()->where('society_id',$id)->where('working_role',$role)->count();
+
+	     		$users=Registration::all()->where('user_id',$id)->first();
+
+	     		$count=$count+1;
+
+	     		$user->user_id=$role.$count;
+	     		$user->remember_token=request('_token');
+     			$user->plant_id=$plant_id[0];
+     			$user->bmc_id=$bmc_id[0];	
+     			$user->society_id=$id;	
+     			$user->creater_user_id=$id;
+     			$user->working_role=$role;
+     			$user->first_name=request('first_name');
+     			$user->mid_name=request('mid_name');
+     			$user->last_name=request('last_name');
+
+     		    $test_phone=Registration::where('phone_number',request('phone_number'))->count();
+
+     		     if ($test_phone) {
+     		          $error="This Phone Number Registerd";
+     		         
+     		          return view('registration',[
+     		               'user_id'=>$id,
+     		               'user'=>$users,
+     		               'role'=>$role,
+     		               'error'=>$error,
+     		               ]);
+     		     }
+
+     		    $user->phone_number=request('phone_number');
+     			$user->user_otp='1234';
+     			$user->otp_conformation_status='0';
+     			$user->email=request('email');
+     			$user->user_photo="photo/manish.png";
+     			$user->password=request('password');
+     			$user->details_status='0';
+
+     			$user->save();
+
+     		     session(['create_work_role' => $role]);
+     		     session(['create_user_id' => $user->user_id]);
+
+
+
+                 return redirect()->route('otpverificationpage',[
+                             'id'=>$id,
+                             'role'=>$role,
+                           ]);
+     		   
+     		     
+     }
+
+     public function otpVerificationPage($id,$role)
+     {
+        $users=Registration::all()->where('user_id',$id)->first();
+
+        return view('society.otpverification',[
+            'user'=>$users,
+            'user_id'=>$id,
+            'role'=>$role,
+            'error'=>0
+        ]);
+     }
+
+     public function details($id,$role){
+     	$users=Registration::all()->where('user_id',$id)->first();
+
+        $create_user_id=session('create_user_id');
+
+        $otp=Registration::all()->where('user_id',$create_user_id)->where('user_otp',request('otp'))->count();
+        $village_list=Farmer::all()->pluck('village_name');
+        $plant_id=session('plant_id');
+        $bmc_id=session('bmc_id');
+        if($otp)
+        {
+             return view('society.farmerForm',[
+             'user'=>$users,
+             'role'=>$role,
+             'user_id'=>$id,
+             'create_user_id'=>$create_user_id,
+             'plant_id'=>$plant_id,
+             'bmc_id'=>$bmc_id,
+             'village_list'=>$village_list,
+             ]);
+        }
+        else{
+
+        	$error="Enter Otp Is Wrong";
+        	return view('society.otpverification',[
+        	     'user'=>$users,
+        	     'role'=>$role,
+        	     'user_id'=>$id,
+        	     'error'=>$error,
+        	]);
+        }
+
+     }
+
+     public function sendDetails($role){
+     	$farmer=new Farmer;
+     	$create_user_id=session('create_user_id');
+
+     	$farmer->user_id=$create_user_id;
+     	$farmer->plant_id=request('plantId');
+
+     	$farmer->bmc_id=request('bmcId');
+     	$farmer->society_id=request('societyId');
+     	$farmer->selected_chart_code=request('chartCategory');
+     	
+     	$farmer->father_name_eng=request('fatherName');
+     	$farmer->father_name_hin=request('fatherNameInHindi');
+     	
+     	$village_name=request('villageName');
+     	$newVillageName=request('newVillageName');
+     	if($village_name !='none'){
+     	       $farmer->village_name=$village_name;
+     	  }else{
+     	       $farmer->village_name=$newVillageName;
+     	  }
+     	
+     	$farmer->address=request('fullAddress');
+     	$farmer->pin_code=request('pinCode');
+     	$farmer->gender=request('gender');
+     	$farmer->dob=request('dob');
+     	$farmer->anniversary_date=request('anniversaryDate');
+     	$farmer->emergency_contact_number=request('emergencyContactNumber');
+     	$farmer->blood_group=request('bloodGroup');
+     	$farmer->opening_balance_type=request('openingBalanceType');
+     	$farmer->opening_amount=request('openingAmount');
+     	
+     	$farmer->payee_name=request('payeeName');
+     	$farmer->bank_name=request('bankName');
+     	$farmer->account_number=request('actNumber');
+     	$farmer->ifsc_code=request('ifscNumber');
+     	$farmer->aadhar_number=request('aadharNumber');
+     	$farmer->aadhar_card_doc=request('aadharDoc');
+     	$farmer->photo=request('photo');
+     	
+
+     	 $x=$farmer->save();
+
+     	  if($x){
+     	       	Registration::where('user_id',$create_user_id)->update(['details_status'=>'1']);
+     	   		return redirect()->route('society.farmerlist',[
+     	                     'id'=>request('societyId'),
+     	                   ]);
+     	  }
+
+     }
+
+     public function farmerList($id){
+     	$users=Registration::all()->where('user_id',$id)->first();
+     //	$farmer_list=Farmer::all()->where('society_id',$id)->where('details_status',1);
+
+     	$farmer_list=Registration::join('farmerdetails', 'registration.user_id', '=', 'farmerdetails.user_id')
+            ->select('registration.user_id','registration.first_name','registration.mid_name','registration.last_name','registration.phone_number','registration.email','farmerdetails.father_name_eng','farmerdetails.village_name','farmerdetails.payee_name','farmerdetails.bank_name','farmerdetails.account_number','farmerdetails.ifsc_code',)
+        	->where('details_status','1')
+            ->get();
+
+        
+     	return view('society.farmerList',[
+     		'user'=>$users,
+     		'farmer_list'=>$farmer_list,
+     		'user_id'=>$id,
+     	]);
+
+
+     }
+
+     public function farmerProfile($id,$farmerId){
+		$users=Registration::all()->where('user_id',$id)->first();
+     	$farmerProfile=Registration::join('farmerdetails', 'registration.user_id', '=', 'farmerdetails.user_id')
+            ->where('farmerdetails.user_id',$farmerId)
+            ->where('registration.user_id',$farmerId)
+            ->get();
+        	
+        	//return $farmerProfile[0];
+            return view('society.farmerDetails',[
+            	'user'=>$users,
+            	'user_id'=>$id,
+            	'fp'=>$farmerProfile[0],
+            ]);
+
+     }
+//-----------------CART------------------//
+
+     public function NewOrder($id)
+     {
+        $users=Registration::all()->where('user_id',$id)->first();
+        $product_list=Plantproducts::all()->where('plant_id',$users['plant_id']);
+        $cart_product_count=Orderdetails::all()->where('order_by_id',$id)->where('order_status','0')->count();
+
+
+        return view('society.productOrder',[
+            'user'=>$users,
+            'product_list'=>$product_list,
+            'add_product_count'=>$cart_product_count,
+            'msg'=>0,
+        ]);
+     }
+
+     public function ProductData()
+     {
+        $id=session('id_of_user');
+        $product_id=request('product_id');
+        $data=Plantproducts::all()->where('product_id',$product_id)->first();
+
+        $find_product=Orderdetails::all()->where('product_id',$product_id)->where('order_by_id',$id)->where('order_status','0')->count();
+
+        if($find_product){
+            return ['data'=>'0'];
+        }
+        else{
+            return ['data'=>$data];
+        }
+
+        
+     }
+
+     public function AddCart($id)
+     {
+     
+         $product=new Orderdetails;
+         $users=Registration::all()->where('user_id',$id)->first();
+
+         $product->plant_id=$users['plant_id'];
+
+         $count=Orderdetails::all()->count();
+         $product->cart_add_id='cart'.($count+1);
+
+         $product->order_by_id=$id;
+         $product->order_by_work=$users['working_role'];
+
+         $product->product_id=request('productId');
+         $product->product_name=request('productName');
+         $product->product_quantity=request('productCount');
+
+
+         $product->sell_price_each=request('totalPrice')/request('productCount');
+
+         $product->order_status='0';
+         
+        $x=$product->save();
+
+
+
+        if($x){
+            $product_list=Plantproducts::all()->where('plant_id',$users['plant_id']);
+            $cart_product_count=Orderdetails::all()->where('order_by_id',$id)->where('order_status','0')->count();
+
+            return view('society.productOrder',[
+            'user'=>$users,
+            'product_list'=>$product_list,
+            'add_product_count'=>$cart_product_count,
+            'msg'=>"Your New Product Added",
+            ]);
+        }
+         
+     }
+
+     public function SocietyCartTable()
+     {
+         $societyId=request('id');
+         $proList=Orderdetails::all()->where('order_by_id',$societyId)->where('order_status','0');
+
+         $html='';
+         foreach ($proList as $pl) {
+             $html.='<tr>
+                        <td>'.$pl['product_name'].'</td>
+                        <td>'.$pl['product_quantity'].'</td>
+                        <td>'.$pl['product_quantity']*$pl['sell_price_each'].'</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-secondary editProuct" data-toggle="modal" data-target=".editProductModel" value="'.$pl['product_id'].'">Edit</button>
+                                <button type="button" class="btn btn-secondary deleteProduct" value="'.$pl['product_id'].'">Delete</button>
+                            </div>
+                        </td>
+                    </tr>';
+
+         }
+
+         return $html;
+
+     }
+     public function SocietyProductOrder($id)
+     {
+         $count=Orderdetails::all()->count();
+         $order_id='order'.($count+1);
+        
+         $x=DB::table('orderdetails')->where('order_by_id',$id)->where('order_status','0')->update(['order_id'=>$order_id,'order_status'=>'1']);
+        
+         $orderList=Orderdetails::all()->where('order_by_id',$id)->where('order_status','1')->groupBy('order_id');
+         $users=Registration::all()->where('user_id',$id)->first();
+       return view('society.productOrderTable',[
+            'user'=>$users,
+            'order_list'=>$orderList,
+        ]);
+     }
+
+     public function SocietyOrderTable($id)
+     {
+         $users=Registration::all()->where('user_id',$id)->first();
+         $orderList=Orderdetails::all()->where('order_by_id',$id)->where('order_status','1')->groupBy('order_id');
+   
+         return view('society.productOrderTable',[
+            'user'=>$users,
+            'order_list'=>$orderList,
+        ]);
+     }
+
+     public function OrderProduclList()
+     {
+        $orderId=request('data');
+        $order_data=Orderdetails::all()->where('order_status','1')->where('order_id',$orderId);
+
+        $html1='';
+        $html2='';
+        $totalPrice=0;
+        $plantStatus="";
+        $vehicleStatus="";
+        $societystatus="";
+        foreach ($order_data as $sd) {
+            $html1.='<tr>
+                        <td>'.$sd['product_name'].'</td>
+                        <td>'.$sd['product_quantity'].'</td>
+                        <td>'.$sd['product_quantity']*$sd['sell_price_each'].'</td>
+                    </tr>';
+            $totalPrice+=$sd['product_quantity']*$sd['sell_price_each'];
+            $plantStatus=$sd['plant_status'];
+            $vehicleStatus=$sd['vehicle_status'];
+            $societystatus=$sd['order_by_status'];
+        }
+        if ($plantStatus=='1') {
+            $plantStatus='Yes';
+        }
+        if($vehicleStatus=='1')
+        {
+            $vehicleStatus="Yes";
+        }
+        $html2='<tr style="color:green">
+                    <td>'.$totalPrice.'</td>
+                    <td>Yes</td>
+                    <td>'.$plantStatus.'</td>
+                    <td>'.$vehicleStatus.'</td>
+                    <td id="conf'.$orderId.'">';
+            if($societystatus=='1')
+            {
+                $html2.='<button value="'.$orderId.'" class="btn btn-primary invoice_down"><span class="fa fa-download"></span></button>';
+            }else{
+                $html2.='<button value="'.$orderId.'" class="btn btn-primary society_confom">Click</button>';
+            }
+            $html2.='</td></tr>';
+
+
+        return ['html1'=>$html1,'html2'=>$html2];
+     }
+
+     public function SocietyConformation()
+     {
+        $orderId=request('data');
+        $html='<button value="'.$orderId.'" class="btn btn-primary invoice_down"><span class="fa fa-download"></span></button>';
+
+     DB::table('orderdetails')->where('order_id',$orderId)->update(['order_by_status'=>'1']);
+     ////////////------------Add All Product In Database-------------//////
+        return $html;
+
+     }
+
+     //-----------------END CART------------------//
+
+     //---------------------SELL PRODUCT-------//
+
+     public function NewSell($id)
+     {
+        $users=Registration::all()->where('user_id',$id)->first();
+        $product_list=Societystorage::all()->where('society_id',$id);
+        $farmer_list=Registration::all()->where('working_role','farmer')->where('society_id',$id);
+        // $cart_product_count=Orderdetails::all()->where('order_by_id',$id)->where('order_status','0')->count();
+
+
+        return view('society.newProductSell',[
+            'user'=>$users,
+            'product_list'=>$product_list,
+            'farmer_list'=>$farmer_list,
+            'msg'=>0,
+        ]);
+     }
+
+     public function GetCartData()
+     {
+       
+
+        $farmerId=request('farmer_id');
+        $farmerData=Registration::all()->where('user_id',$farmerId)->first();
+        $farmerName=$farmerData['first_name'].' '.$farmerData['mid_name'].' '.$farmerData['last_name'];
+        $cartData=Societysell::all()->where('farmer_id',$farmerId)->where('order_status','0');
+        $cartCount=$cartData->count();
+        $totalPrice=0;
+        foreach ($cartData as $cd) {
+            $totalPrice=$totalPrice+$cd['price'];
+        }
+        return[
+            'farmer_name'=>$farmerName,
+            'cart_count'=>$cartCount,
+            'total_price'=>$totalPrice,
+            'cart_data'=>$cartData,
+        ];
+     }
+
+     public function GetCartTable()
+     {
+         $farmerId=request('farmer_id');
+         $cartData=Societysell::all()->where('farmer_id',$farmerId)->where('order_status','0');
+         $data=0;
+
+         foreach ($cartData as $cd) {
+             $data.='<tr>
+                        <td>'.$cd['product_name'].'</td>
+                        <td>'.$cd['amount'].'</td>
+                        <td>'.$cd['price'].'</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-secondary editProuct" data-toggle="modal" data-target=".editProductModel" value="'.$cd['product_id'].'">Edit</button>
+                                <button type="button" class="btn btn-secondary deleteProduct" value="'.$cd['product_id'].'">Delete</button>
+                            </div>
+                        </td>
+                    </tr>';
+
+            // $data+=$cd['price'];
+         }
+
+         return $data;
+     }
+
+     public function ProductInfo()
+     {
+         $pro_name=request('pro_name');
+         $pro_data=Societystorage::all()->where('product_name',$pro_name)->first();
+
+         return $pro_data;
+     }
+
+     public function AddProduct()
+     {
+        $data=request('sendData');
+         $add=new Societysell;
+
+         $check=Societysell::all()->where('farmer_id',$data['farmer_id'])->where('product_name',$data['productname'])->where('order_status','0')->count();
+         
+
+         if($check){
+             $cart_count=Societysell::all()->where('farmer_id',$data['farmer_id'])->where('order_status','0');
+             $count_pro=$cart_count->count();
+             $total_price_of_cart=0;
+             foreach ($cart_count as $cc) {
+                $total_price_of_cart+=$cc['price'];
+             }
+            return ['conf'=>'0','countProduct'=>$count_pro,'total_price'=>$total_price_of_cart];
+         }else{
+            $count=Societysell::all()->count();
+             $add->cart_id='cart'.($count+1);
+
+             $add->order_status='0';
+             $add->farmer_id=$data['farmer_id'];
+             $add->farmer_name=$data['farmer_name'];
+             $add->product_name=$data['productname'];
+             $add->amount=$data['productAmount'];
+             $add->price=$data['totalPrice'];
+             $add->save();
+
+            $cart_count=Societysell::all()->where('farmer_id',$data['farmer_id'])->where('order_status','0');
+             $count_pro=$cart_count->count();
+             $total_price_of_cart=0;
+             foreach ($cart_count as $cc) {
+                $total_price_of_cart+=$cc['price'];
+             }
+
+             return ['conf'=>'1','countProduct'=>$count_pro,'total_price'=>$total_price_of_cart];
+         }
+     }
+
+     public function FinalProductSell()
+     {
+         $farmerId=request('farmer_id');
+         $count=Societysell::all()->count();
+         $order_id='order'.($count+1);
+        
+         $x=DB::table('societysell')->where('farmer_id',$farmerId)->where('order_status','0')->update(['order_id'=>$order_id,'order_status'=>'1']);
+         if($x)
+         {
+            return '1';
+         }
+         return '0';
+     }
+
+    public function ProductSellTable($id)
+    {
+        $users=Registration::all()->where('user_id',$id)->first();
+        $selList=Societysell::all()->where('order_status','1')->groupBy('order_id');
+
+        return view('society.productSellTable',[
+            'user'=>$users,
+            'sell_list'=>$selList,
+        ]);
+    }
+
+    public function SellProduclList()
+    {
+        $orderId=request('data');
+        $sell_data=Societysell::all()->where('order_status','1')->where('order_id',$orderId);
+
+        $html='';
+        $totalPrice=0;
+        foreach ($sell_data as $sd) {
+            $html.='<tr>
+                        <td>'.$sd['product_name'].'</td>
+                        <td>'.$sd['amount'].'</td>
+                        <td>'.$sd['price'].'</td>
+                    </tr>';
+            $totalPrice+=$sd['price'];
+        }
+
+        return ['html'=>$html,'total_price'=>$totalPrice];
+    }
+     //---------------END SELL PRODUCT------------//
+}
