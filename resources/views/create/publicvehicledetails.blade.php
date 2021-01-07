@@ -98,6 +98,9 @@
 							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
+							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'outlet'])}}">Create Outlet</a>
+						</li>
+						<li>
 							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
 						<li>

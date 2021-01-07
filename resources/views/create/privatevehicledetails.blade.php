@@ -98,6 +98,9 @@
 							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
+							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'outlet'])}}">Create Outlet</a>
+						</li>
+						<li>
 							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
 						<li>
@@ -272,7 +275,7 @@
 				@endif
 					<h3 class="text-center py-3">Private Vehicle Details Form</h3>
 					
-					<form method="post" action="{{route('privatevehicledetails',['id'=>$user_id,'role'=>$role])}}">
+					<form method="post" action="{{route('privatevehicledetails',['id'=>$user_id,'role'=>$role])}}" enctype="multipart/form-data">
 						@csrf
 						<div class="row">
 							<div class="col-lg-4 col-sm-10  my-2">
@@ -350,6 +353,10 @@
                             <div class="col-lg-4 col-sm-12  my-2">
 			                  <label>Expiry date of Fitness Certificate<span class="text-danger">*</span></label>
 			                    <input type="date" class="form-control" required="" name="expiryFitness">
+			                </div>
+			                <div class="col-lg-4 col-sm-12  my-2">
+			                  <label>Vehicle Photo<span class="text-danger">*</span></label>
+			                    <input type="file" class="form-control" required="" name="photo">
 			                </div>
     						<div class="col-lg-12  my-2">
     							<button class="btn btn-primary mx-auto"  id="resiter_btn" name="register" style="cursor: pointer;">Submit </button>

@@ -45,13 +45,13 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				<li >
-					<a href="#home" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#home" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="home">
+					<ul class="collapse list-unstyled show" id="home">
 						<li>
-							<a href="{{route('plant.home',['id'=>$user['user_id']])}}">Home</a>
+							<a href="{{route('plant.home')}}">Home</a>
 						</li>
 						<li>
 							<a href="#">Daily Current Report</a>
@@ -65,10 +65,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="milk-management">
 						<li>
-							<a href="{{route('plant.milk.collection.table',['id'=>$user['user_id']])}}">Milk Collection List</a>
+							<a href="{{route('plant.milk.collection.table')}}">Milk Collection List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.milk.collection',['id'=>$user['user_id']])}}">Milk Collection Notification</a>
+							<a href="{{route('plant.milk.collection')}}">Milk Collection Notification</a>
 						</li>
 						<li>
 							<a href="#">Milk Dispatch List</a>
@@ -85,36 +85,38 @@
 					<ul class="collapse list-unstyled " id="farmer-dasbord">
 						
 						<li>
-							<a href="{{route('memberlist',['id'=>$user['user_id']])}}">All Members</a>
+							<a href="{{route('memberlist')}}">All Members</a>
 						</li>
 						<li>						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'society'])}}">Create Society</a>
+							<a href="{{route('registration',['create_role'=>'society'])}}">Create Society</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'farmer'])}}">Create Farmer</a>
+							<a href="{{route('registration',['create_role'=>'farmer'])}}">Create Farmer</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
+							<a href="{{route('registration',['create_role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
-							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
+							<a href="{{route('registration',['create_role'=>'outlet'])}}">Create Outlet</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'vehicle_owner'])}}">Public Vehicle</a>
+							<a href="{{route('privatevehicle',['create_role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
-						
+						<li>
+							<a href="{{route('registration',['create_role'=>'vehicle_owner'])}}">Public Vehicle</a>
+						</li>
 					</ul>
 				</li>
-				<li>
+				<li >
 					<a href="#root-master" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-road"></span> Root Master
 					</a>
 					<ul class="collapse list-unstyled " id="root-master">
 						<li>
-							<a href="{{route('rootmasterlist',['id'=>$user['user_id']])}}">Root Master List</a>
+							<a href="{{route('rootmasterlist')}}">Root Master List</a>
 						</li>
 						<li>
-							<a href="{{route('newrootmasterform',['id'=>$user['user_id']])}}">Add New Root Master</a>
+							<a href="{{route('newrootmasterform')}}">Add New Root Master</a>
 						</li>
 					</ul>
 				</li>
@@ -125,10 +127,10 @@
 					</a>
 					<ul class="collapse list-unstyled " id="rate-chart">
 						<li>
-							<a href="{{route('ratechartlist',['id'=>$user['user_id']])}}">Current Reat Chart List</a>
+							<a href="{{route('ratechartlist')}}">Current Reat Chart List</a>
 						</li>
 						<li>
-							<a href="{{route('newratechartform',['id'=>$user['user_id']])}}">Create New Reat Chart</a>
+							<a href="{{route('newratechartform')}}">Create New Reat Chart</a>
 						</li>
 					</ul>
 				</li>
@@ -139,10 +141,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="#">All Transition List</a>
+							<a href="{{route('plant-allTransaction')}}">All Transition List</a>
 						</li>
 						<li>
-							<a href="#">New Transition</a>
+							<a href="{{route('plant-newTransaction')}}">New Transition</a>
 						</li>
 					</ul>
 				</li>
@@ -162,16 +164,16 @@
 						</li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#ec" data-toggle="collapse" aria-expanded="true">
+				<li>
+					<a href="#ec" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-shopping-cart"></span> E-commerce
 					</a>
-					<ul class="collapse list-unstyled show" id="ec">
+					<ul class="collapse list-unstyled" id="ec">
 						<li>
-							<a href="{{route('plant.listofproduct',['id'=>$user['user_id']])}}">All Product List</a>
+							<a href="{{route('plant.listofproduct')}}">All Product List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.addproduct',['id'=>$user['user_id']])}}">Add New Product </a>
+							<a href="{{route('plant.addproduct')}}">Add New Product </a>
 						</li>
 						<!-- <li>
 							<a href="#">Offer Controller</a>
@@ -180,10 +182,10 @@
 							<a href="#">Page Controller</a>
 						</li> -->
 						<li>
-							<a href="{{route('plant.allOrderList',['id'=>$user['user_id']])}}">Order List</a>
+							<a href="{{route('plant.allOrderList')}}">Order List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.neworderlist',['id'=>$user['user_id']])}}">New Order List</a>
+							<a href="{{route('plant.neworderlist')}}">New Order List</a>
 						</li>
 					</ul>
 				</li>
@@ -226,9 +228,9 @@
 									{{$user['first_name']." ".$user['mid_name']." ".$user['last_name']}}
 								
 								</h5>
-									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="ti-power-off"></span> Logout </a>
+									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="fa fa-sign-out"></span> Logout </a>
 										<br>
-									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="ti-power-off"></span> Profile </a>
+									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="fa fa-user"></span> Profile </a>
 									
 							</div>
 							
@@ -259,29 +261,27 @@
 					<h4 class="text-center py-3"><strong>Add New Product</strong></h4>
 					
 					<div style="width:100%;height: 2px;background-color: black"></div>
-
+					@if(session('msg'))
 					<div class="row">
-						<div class="col-lg-8 col-sm-12 mx-auto my-2" style="background-color:rgb(255,187,119); border-radius: 10px;display: none; " id="add_data">
-							<h5 class="text-center"><strong>New product added Successfully</strong></h5>
-						</div>
-						<div class="col-lg-8 col-sm-12 mx-auto my-2" style="background-color:rgb(202,4,54); border-radius: 10px;display: none; " id="not_add_data">
-							<h5 class="text-center"><strong style="color: white">This product is already add</strong></h5>
+						<div class="col-lg-8 col-sm-12 mx-auto my-2" style="background-color:rgb(255,187,119); border-radius: 10px; " id="add_data">
+							<h5 class="text-center py-2">{{session('msg')}}<strong></strong></h5>
 						</div>
 					</div>
-
-					<form method="post" id="addProduct">
+					@endif
+					<form method="post" action="{{route('addproduct')}}" enctype="multipart/form-data">
+						@csrf
 						<div class="row">
 							<div class="col-lg-4 col-sm-10  my-2">
 							    <label>Product Name<span class="text-danger">*</span></label>
-							    <input type="text" class="form-control"  placeholder="Enter Product Name" id="productName" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" required="" maxlength="50">
+							    <input type="text" class="form-control"  placeholder="Enter Product Name" name="productName" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" required="" maxlength="50">
 							</div>
 							<div class="col-lg-4 col-sm-10  my-2">
 							    <label>Product Short Name<span class="text-danger">*</span></label>
-							    <input type="text" class="form-control"  placeholder="Enter Product Short Name" id="shortProductName" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" required="" max="30">
+							    <input type="text" class="form-control"  placeholder="Enter Product Short Name" name="shortProductName" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" required="" max="30">
 							</div>
 							<div class="col-lg-4 col-sm-10  my-2" id="vill_list">
 							    <label>Product Type<span class="text-danger">*</span></label>
-							    <select class="form-control" required="" id="productType">
+							    <select class="form-control" required="" name="productType">
 							    	<option value="">--* Select One *--</option>
 							    	<option value="milky">Milky</option>
 							    	<option value="cattle">Cattle</option>
@@ -290,7 +290,7 @@
 							</div>
 							<div class="col-lg-4 col-sm-10  my-2" id="vill_list">
 							    <label>Product Unit<span class="text-danger">*</span></label>
-							    <select class="form-control" required="" id="productUnit">
+							    <select class="form-control" required="" name="productUnit">
 							    	<option value="">--* Select One *--</option>
 							    	<option value="kg">Kg</option>
 							    	<option value="litter">Litter</option>
@@ -300,19 +300,19 @@
 							</div>
 							<div class="col-lg-4 col-sm-10  my-2">    
 							    <label>Product Amount<span class="text-danger">*</span></label>
-							    <input type="text" class="form-control"  placeholder="Enter Product Amount" required=""  id="productAmount" pattern="[0-9]*" maxlength="10">
+							    <input type="text" class="form-control"  placeholder="Enter Product Amount" required=""  name="productAmount" pattern="[0-9]*" maxlength="10">
 							</div>
 							<div class="col-lg-4 col-sm-10  my-2">    
 							    <label>Product Price (Per Unit)<span class="text-danger">*</span></label>
-							    <input type="text" class="form-control"  placeholder="Enter Product Price" required=""  id="productPrice" pattern="[0-9]*" maxlength="10">
+							    <input type="text" class="form-control"  placeholder="Enter Product Price" required=""  name="productPrice" pattern="[0-9]*" maxlength="10">
 							</div>
 							<div class="col-lg-4 col-sm-10  my-2">    
 							    <label>Product Offer (%)</label>
-							    <input type="text" class="form-control"  placeholder="Enter Product Offer"  id="productOffer" pattern="[0-9]*" maxlength="10">
+							    <input type="text" class="form-control"  placeholder="Enter Product Offer"  name="productOffer" pattern="[0-9]*" maxlength="10">
 							</div>
 							<div class="col-lg-4 col-sm-10  my-2">    
 							    <label>Product Photo</label>
-							    <input type="file" class="form-control"   id="productPhoto" min="0">
+							    <input type="file" class="form-control"   name="productPhoto" min="0" required="">
 							</div>
 							<div class="col-lg-12  my-2">
     							<button type="submit" class="btn btn-primary mx-auto"   style="cursor: pointer;">Submit</button>
@@ -362,50 +362,8 @@
 
 	<script src="{{ asset('/js/js/dairy.js') }}"></script>
 	<script type="text/javascript">
-		$(document).ready(function(event){
-			$(document).on('submit','#addProduct',function(event){
-
-	 		event.preventDefault();
-
-				 var productName=$('#productName').val();
-				 var shortProductName=$('#shortProductName').val();
-				 var productType=$('#productType').val();
-				 var productUnit=$('#productUnit').val();
-				 var productAmount=$('#productAmount').val();
-				 var productPrice=$('#productPrice').val();
-				 var productOffer=$('#productOffer').val();
-				 var productPhoto="IMAGE";
-
-				var sendData='{"productName":"'+productName+'","shortProductName":"'+shortProductName+'","productType":"'+productType+'","productAmount":"'+productAmount+'","productPrice":"'+productPrice+'","productOffer":"'+productOffer+'","productPhoto":"'+productPhoto+'","productUnit":"'+productUnit+'"}';
-				var obj = JSON.parse(sendData);
-
-				$.post('{{ route("addproduct")}}',{'data':obj,'_token':$('input[name=_token]').val()},function(data){
-
-							if(data==1)
-							{
-								$('#not_add_data').hide();
-
-								$('#productName').val('');
-								$('#shortProductName').val('');
-								$('#productType').val('');
-								$('#productUnit').val('');
-								$('#productAmount').val('');
-								$('#productPrice').val('');
-								$('#productOffer').val('');
-								$('#productPhoto').val('');
-
-								$('#add_data').show();
-								setTimeout(function(){$('#add_data').hide();}, 5000);
-							}
-							else{
-								$('#add_data').hide();
-								$('#not_add_data').show();
-								setTimeout(function(){$('#not_add_data').hide();}, 5000);
-							}
-    			});
-
-			})
-		});
+		$('#add_data').show();
+		setTimeout(function(){$('#add_data').hide();}, 5000);
 	</script>
 </body>
 </html>

@@ -30,6 +30,8 @@ class CreateRegistrationTable extends Migration
             $table->string('email',50)->nullable();
             $table->string('user_photo')->nullable();
             $table->string('password',20);
+            $table->string('active_status',5);
+            $table->string('login_status',5);
             $table->string('details_status')->nullable();
             $table->string('remember_token',200);
             $table->timestamps();

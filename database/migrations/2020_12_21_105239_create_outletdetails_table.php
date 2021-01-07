@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStaffdetailsTable extends Migration
+class CreateOutletdetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateStaffdetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('staffdetails', function (Blueprint $table) {
+        Schema::create('outletdetails', function (Blueprint $table) {
             $table->id();
             $table->string('user_id',20)->unique();
             $table->string('plant_id',20);
-            $table->string('designation',50);
-            $table->string('department',50);
-            $table->string('name_in_hindi',50)->nullable();
+            $table->string('name_hin',50)->nullable();
             $table->string('father_name_eng',50);
             $table->string('father_name_hin',50)->nullable();
-            $table->string('village_name',50);
+            $table->string('outlet_name',50)->nullable();
+            $table->string('village_name',30);
             $table->string('pin_code',6);
             $table->string('address');
             $table->string('gender',10);
@@ -38,14 +37,7 @@ class CreateStaffdetailsTable extends Migration
             $table->string('aadhar_card_doc');
             $table->string('opening_balance_type',10);
             $table->string('opening_amount',10);
-            $table->string('working_days_in_week',70);
-            $table->string('driver_licence_number',30)->nullable();
-            $table->string('driver_licence_doc')->nullable();
-            $table->string('driver_licence_issue_date',30)->nullable();
-            $table->string('driver_licence_expiry_date',30)->nullable();
-            $table->string('pan_card_number',30)->nullable();
-            $table->string('pan_card_doc')->nullable();
-            $table->string('medical_certificate');
+            $table->string('photo');
             $table->timestamps();
         });
     }
@@ -57,6 +49,6 @@ class CreateStaffdetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staffdetails');
+        Schema::dropIfExists('outletdetails');
     }
 }

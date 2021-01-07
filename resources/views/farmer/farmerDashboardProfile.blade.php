@@ -44,20 +44,17 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				<li>
-					<a href="#nav-dashboard" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#nav-dashboard" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="nav-dashboard">
+					<ul class="collapse list-unstyled show" id="nav-dashboard">
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Current Reports</a>
+							<a href="{{ route('farmer.home')}}">Current Reports</a>
 						</li>
 						<li>
-							<a href="{{ route('farmer.alldata',['plantId'=>$plant_id,'id'=>$user_id])}}">Total Milk Report</a>
+							<a href="{{ route('farmer.alldata')}}">Total Milk Report</a>
 						</li>
-						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Milk Notifiction</a>
-						</li> 
 					</ul>
 				</li>
 				<li >
@@ -66,7 +63,7 @@
 					</a>
 					<ul class="collapse list-unstyled " id="nav-patients">
 						<li>
-							<a href="{{ route('farmer.transition',['plantId'=>$plant_id,'id'=>$user_id])}}">All Payment</a>
+							<a href="{{ route('farmer.transition')}}">All Payment</a>
 						</li>
 						
 					</ul>
@@ -76,21 +73,22 @@
 						<span class="fa fa-shopping-cart"></span> Shope
 					</a>
 					<ul class="collapse list-unstyled " id="shop">
+						
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Shoping</a>
+							<a href="{{ route('farmer-order-list')}}">Order List</a>
 						</li>
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Order List</a>
+							<a href="{{ route('farmer-order-new')}}">New Order</a>
 						</li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#nav-doctors" data-toggle="collapse" aria-expanded="true">
+				<li>
+					<a href="#nav-doctors" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-user"></span> Your Profile
 					</a>
-					<ul class="collapse list-unstyled show" id="nav-doctors">
+					<ul class="collapse list-unstyled" id="nav-doctors">
 						<li>
-							<a href="{{ route('farmer.profile',['plantId'=>$plant_id,'id'=>$user_id])}}">Profile</a>
+							<a href="{{ route('farmer.profile')}}">Profile</a>
 						</li>
 						
 					</ul>
@@ -126,7 +124,7 @@
 								</h5>
 									<a href="{{route('plant.logout',['id'=>$user_id])}}"><span class="ti-power-off"></span> Logout </a>
 										<br>
-									<a href="{{ route('farmer.profile',['plantId'=>$plant_id,'id'=>$user_id])}}"><span class="ti-power-off"></span> Profile </a>
+									<a href="{{ route('farmer.profile')}}"><span class="ti-power-off"></span> Profile </a>
 									
 							</div>
 							
@@ -150,7 +148,7 @@
 					<div class="row">
 						<div class="col-lg-4 col-sm-12 mx-auto">
 							<div class="img-div my-5 text-center">
-								<img src="{{ asset('/storage/image/user.jpg') }}">
+								<img src="{{ asset('/storage/user_image/'.$fp['user_photo']) }}">
 								<p><span id="name">{{$fp['first_name'].' '.$fp['mid_name'].' '.$fp['last_name']}}</span><br>( Farmer )<br><strong>{{$user_id}}</strong><br>{{$fp['phone_number']}}</p>
 							</div>
 							<div class="profile-main">

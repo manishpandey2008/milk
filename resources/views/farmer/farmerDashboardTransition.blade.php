@@ -27,6 +27,7 @@
 
 	<script src="{{ asset('/js/js/modernizr.min.js') }}"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -44,29 +45,26 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				<li >
-					<a href="#nav-dashboard" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#nav-dashboard" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="nav-dashboard">
+					<ul class="collapse list-unstyled show" id="nav-dashboard">
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Current Reports</a>
+							<a href="{{ route('farmer.home')}}">Current Reports</a>
 						</li>
 						<li>
-							<a href="{{ route('farmer.alldata',['plantId'=>$plant_id,'id'=>$user_id])}}">Total Milk Report</a>
+							<a href="{{ route('farmer.alldata')}}">Total Milk Report</a>
 						</li>
-						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Milk Notifiction</a>
-						</li> 
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#nav-patients" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="#nav-patients" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-inr"></span> Transaction
 					</a>
-					<ul class="collapse list-unstyled show" id="nav-patients">
+					<ul class="collapse list-unstyled " id="nav-patients">
 						<li>
-							<a href="{{ route('farmer.transition',['plantId'=>$plant_id,'id'=>$user_id])}}">All Payment</a>
+							<a href="{{ route('farmer.transition')}}">All Payment</a>
 						</li>
 						
 					</ul>
@@ -76,11 +74,12 @@
 						<span class="fa fa-shopping-cart"></span> Shope
 					</a>
 					<ul class="collapse list-unstyled " id="shop">
+						
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Shoping</a>
+							<a href="{{ route('farmer-order-list')}}">Order List</a>
 						</li>
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Order List</a>
+							<a href="{{ route('farmer-order-new')}}">New Order</a>
 						</li>
 					</ul>
 				</li>
@@ -90,7 +89,7 @@
 					</a>
 					<ul class="collapse list-unstyled" id="nav-doctors">
 						<li>
-							<a href="{{ route('farmer.profile',['plantId'=>$plant_id,'id'=>$user_id])}}">Profile</a>
+							<a href="{{ route('farmer.profile')}}">Profile</a>
 						</li>
 						
 					</ul>
@@ -149,240 +148,121 @@
 			<div class="container-fluid home">
 				
 
-				<div class="widget-area proclinic-box-shadow color-green my-3">
+				<!-- <div class="widget-area proclinic-box-shadow color-green my-3">
 					<div class="container">
-						<div class="row">
-							<div class="col-lg-3 col-sm-12 mx-auto my-2"  id="day_wise_find_div">
-								<input type="date" name="" class="form-control" id="date" required="">
+						<form method="post" action="{{route('farmer.transition-year')}}">
+							@csrf
+							<div class="row">
+								<div class="col-lg-3 col-sm-12 mx-auto my-2"  id="day_wise_find_div">
+									<input type="" list="yearlist" name="year" class="form-control" placeholder="Select Year">
+									<datalist id="yearlist">
+										@for($i=$user['created_at']->year;$i<=date('Y');$i++)
+										<option value="{{$i}}"></option>
+										@endfor
+									</datalist>
+								</div>
+								<div class="col-lg-3 col-sm-12 mx-auto my-2"  id="day_wise_find_div">
+									<input type="" name="" list="monthlist" class="form-control" name="date" required="" placeholder="Select Month">
+									<datalist id="monthlist">
+									@for($i=1;$i<=12;$i++)
+										<option value="{{$i}}"></option>
+									@endfor
+									</datalist>
+								</div>
+								<div class="col-lg-3 col-sm-12 mx-auto my-2">
+									<button class="btn btn-primary my-2" style="width: 100%">Find </button>
+								</div>
 							</div>
-							<div class="col-lg-3 col-sm-12 mx-auto my-2">
-								<button class="btn btn-primary my-2" style="width: 100%">Find </button>
-							</div>
-						</div>
+						</form>
 					</div>
-				</div>
-				<div class="row">
+				</div> -->
+				<!-- <div class="row">
 					<div class="col-md-4">
-						<div class="widget-area proclinic-box-shadow color-red">
-							<div class="widget-left">
-								<span class="ti-user"></span>
-							</div>
+						<div class="widget-area proclinic-box-shadow text-center">
 							<div class="widget-right">
-								<h4 class="wiget-title">Total Price Amount</h4>
+								<h4><strong>Opening Amount</strong></h4>
 								<span class="numeric color-red">45000</span>
-								<!-- <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +20% Increased</p> -->
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4">
-						<div class="widget-area proclinic-box-shadow color-green">
-							<div class="widget-left">
-								<span class="ti-bar-chart"></span>
-							</div>
+						<div class="widget-area proclinic-box-shadow text-center">
 							<div class="widget-right">
-								<h4 class="wiget-title">Total Transition</h4>
+								<h4><strong>Closing Amount</strong></h4>
 								<span class="numeric color-green">1000</span>
-								<!-- <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p> -->
+							 <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p> -->
+						<!-- 	</div>
+						</div>
+					</div> -->
+					<!-- <div class="col-md-4">
+						<div class="widget-area proclinic-box-shadow text-center">
+							<div class="widget-right">
+								<h4><strong>Curent Amount</strong></h4>
+								<span class="numeric color-green">1000</span>
+								 <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p> 
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>  -->
 
-				<div class="container-fluid widget-area proclinic-box-shadow color-green my-3">
-					<h4 class="text-center my-2">Price Transition Data</h4>
+				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
+					<h4 class="text-center py-2">Transition Table</h4>
 					<div class="row">
 						<div class="col-12" id="farmer_dasbord_table">
 							<div class="table-responsive mb-3">
-								<table id="tableId" class="table table-bordered table-hover table-striped text-center">
+								<table class="table table-bordered table-hover table-striped text-center" id="myTable">
 									<thead>
 										<tr>
-											<th class="no-sort">
-												<div class="custom-control custom-checkbox">
-													<input class="custom-control-input" type="checkbox" id="select-all">
-													<label class="custom-control-label" for="select-all"></label>
-												</div>
-											</th>
-											<th>Transition From</th>
+											<th>Transition Type</th>
 											<th>Transition ID</th>
+											<th>Transition From</th>
+											<th>Transition From ID</th>
+											<th>Transition To</th>
+											<th>Transition To ID</th>
 											<th>Transition Amount</th>
 											<th>Transition Date</th>
+											<td>Transition Msg</td>
 											<th>Status</th>
 										</tr>
 									</thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="1">
-                                                    <label class="custom-control-label" for="1"></label>
-                                                </div>
-                                            </td>
-                                            <td>socity001</td>
-                                            <td>hsdggfugfuj001</td>
-                                            <td>1000</td>
-                                            <td>12/2/2020</td>
-                                            <td>
-                                                <span class="badge badge-success">completed</span>
-                                            </td>
-                                            <td>
-                                            	<nav aria-label="Page navigation example">
-                                            		<ul class="pagination justify-content-center export-pagination">
-                                            			<li class="page-item">
-                                            				<a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
-                                            			</li>
-                                            		</ul>
-                                            	</nav>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="1">
-                                                    <label class="custom-control-label" for="1"></label>
-                                                </div>
-                                            </td>
-                                            <td>socity001</td>
-                                            <td>hsdggfugfuj001</td>
-                                            <td>1000</td>
-                                            <td>12/2/2020</td>
+                                    	@foreach($trCreadit as $tc)
+                                        <tr style="background-color: rgb(176,215,176);">
+                                        	<td>Creadit</td>
+                                        	<td>{{$tc['transaction_id']}}</td>
+                                            <td>{{$tc['transaction_from']}}</td>
+                                            <td>{{$tc['transaction_from_id']}}</td>
+                                            <td>{{$tc['transaction_to']}}</td>
+                                            <td>{{$tc['transaction_to_id']}}</td>
+                                            <td>{{$tc['transaction_amount']}}</td>
+                                            <td>{{$tc['created_at']}}</td>
+                                            <td>{{$tc['transaction_msg']}}</td>
                                             <td>
                                                 <span class="badge badge-success">completed</span>
                                             </td>
-                                            <td>
-                                            	<nav aria-label="Page navigation example">
-                                            		<ul class="pagination justify-content-center export-pagination">
-                                            			<li class="page-item">
-                                            				<a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
-                                            			</li>
-                                            		</ul>
-                                            	</nav>
-                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="1">
-                                                    <label class="custom-control-label" for="1"></label>
-                                                </div>
-                                            </td>
-                                            <td>socity001</td>
-                                            <td>hsdggfugfuj001</td>
-                                            <td>1000</td>
-                                            <td>12/2/2020</td>
+                                        @endforeach
+                                        @foreach($trDebit as $td)
+                                        <tr style="background-color: rgb(255,191,191);">
+                                            <td>Creadit</td>
+                                        	<td>{{$td['transaction_id']}}</td>
+                                            <td>{{$td['transaction_from']}}</td>
+                                            <td>{{$td['transaction_from_id']}}</td>
+                                            <td>{{$td['transaction_to']}}</td>
+                                            <td>{{$td['transaction_to_id']}}</td>
+                                            <td>{{$td['transaction_amount']}}</td>
+                                            <td>{{$td['created_at']}}</td>
+                                            <td>{{$td['transaction_msg']}}</td>
                                             <td>
                                                 <span class="badge badge-success">completed</span>
                                             </td>
-                                            <td>
-                                            	<nav aria-label="Page navigation example">
-                                            		<ul class="pagination justify-content-center export-pagination">
-                                            			<li class="page-item">
-                                            				<a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
-                                            			</li>
-                                            		</ul>
-                                            	</nav>
-                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="1">
-                                                    <label class="custom-control-label" for="1"></label>
-                                                </div>
-                                            </td>
-                                            <td>socity001</td>
-                                            <td>hsdggfugfuj001</td>
-                                            <td>1000</td>
-                                            <td>12/2/2020</td>
-                                            <td>
-                                                <span class="badge badge-success">completed</span>
-                                            </td>
-                                            <td>
-                                            	<nav aria-label="Page navigation example">
-                                            		<ul class="pagination justify-content-center export-pagination">
-                                            			<li class="page-item">
-                                            				<a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
-                                            			</li>
-                                            		</ul>
-                                            	</nav>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="1">
-                                                    <label class="custom-control-label" for="1"></label>
-                                                </div>
-                                            </td>
-                                            <td>socity001</td>
-                                            <td>hsdggfugfuj001</td>
-                                            <td>1000</td>
-                                            <td>12/2/2020</td>
-                                            <td>
-                                                <span class="badge badge-success">completed</span>
-                                            </td>
-                                            <td>
-                                            	<nav aria-label="Page navigation example">
-                                            		<ul class="pagination justify-content-center export-pagination">
-                                            			<li class="page-item">
-                                            				<a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
-                                            			</li>
-                                            		</ul>
-                                            	</nav>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="1">
-                                                    <label class="custom-control-label" for="1"></label>
-                                                </div>
-                                            </td>
-                                            <td>socity001</td>
-                                            <td>hsdggfugfuj001</td>
-                                            <td>1000</td>
-                                            <td>12/2/2020</td>
-                                            <td>
-                                                <span class="badge badge-success">completed</span>
-                                            </td>
-                                            <td>
-                                            	<nav aria-label="Page navigation example">
-                                            		<ul class="pagination justify-content-center export-pagination">
-                                            			<li class="page-item">
-                                            				<a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
-                                            			</li>
-                                            		</ul>
-                                            	</nav>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="1">
-                                                    <label class="custom-control-label" for="1"></label>
-                                                </div>
-                                            </td>
-                                            <td>socity001</td>
-                                            <td>hsdggfugfuj001</td>
-                                            <td>1000</td>
-                                            <td>12/2/2020</td>
-                                            <td>
-                                                <span class="badge badge-success">completed</span>
-                                            </td>
-                                            <td>
-                                            	<nav aria-label="Page navigation example">
-                                            		<ul class="pagination justify-content-center export-pagination">
-                                            			<li class="page-item">
-                                            				<a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
-                                            			</li>
-                                            		</ul>
-                                            	</nav>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 
 								<!--Export links-->
-								<nav aria-label="Page navigation example">
+								<!-- <nav aria-label="Page navigation example">
 									<ul class="pagination justify-content-center export-pagination">
 										<li class="page-item">
 											<a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
@@ -391,7 +271,7 @@
 											<a class="page-link" href="#"><span class="ti-align-justify"></span> Excel</a>
 										</li>
 									</ul>
-								</nav>
+								</nav> -->
 								
 							</div>
 						</div>
@@ -433,5 +313,11 @@
 	<script src="{{ asset('/js/js/custom.js') }}"></script>
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
 	<script src="{{ asset('/js/js/dairy.js') }}"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#myTable').DataTable();
+		} );
+	</script>
 </body>
 </html>

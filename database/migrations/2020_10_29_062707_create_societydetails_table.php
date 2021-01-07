@@ -22,7 +22,7 @@ class CreateSocietydetailsTable extends Migration
             $table->string('father_name_eng',50);
             $table->string('father_name_hin',50)->nullable();
             $table->string('society_name',50)->nullable();
-            $table->string('village_name',30);
+            $table->string('village_name',50);
             $table->string('pin_code',6);
             $table->string('address');
             $table->string('gender',10);
@@ -44,7 +44,6 @@ class CreateSocietydetailsTable extends Migration
             $table->string('commission_amount',10);
             $table->string('payment_type',30);
             $table->string('root_supervisor',30);
-            $table->string('photo');
             $table->timestamps();
         });
     }

@@ -46,161 +46,54 @@
 				<a href="#"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				@foreach($users as $user)
-				<li class="active">
-					<a href="#home" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="{{ route('outlet_home',['id'=>$user_id])}}" aria-expanded="false">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled show" id="home">
-						<li>
-							<a href="{{route('plant.home')}}">Home</a>
-						</li>
-						<li>
-							<a href="#">Daily Current Report</a>
-						</li>
-					</ul>
 				</li>
-				
 				<li>
-					<a href="#milk-management" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-tint"></span> Milk Management 
+					<a href="#transaction" data-toggle="collapse" aria-expanded="false">
+						<span class="fa fa-cart-arrow-down"></span> Transaction
 					</a>
-					<ul class="collapse list-unstyled" id="milk-management">
+					<ul class="collapse list-unstyled" id="transaction">
 						<li>
-							<a href="{{route('plant.milk.collection.table')}}">Milk Collection List</a>
+							<a href="#">New Transaction </a>
 						</li>
 						<li>
-							<a href="{{route('plant.milk.collection')}}">Milk Collection Notification</a>
-						</li>
-						<li>
-							<a href="#">Milk Dispatch List</a>
-						</li>
-						<li>
-							<a href="#">Milk Dispatch</a>
+							<a href="#">All Transaction List</a>
 						</li>
 					</ul>
 				</li>
 				<li >
-					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-users"></span> Members
-					</a>
-					<ul class="collapse list-unstyled " id="farmer-dasbord">
-						
-						<li>
-							<a href="{{route('memberlist')}}">All Members</a>
-						</li>
-						<li>						<li>
-							<a href="{{route('registration',['create_role'=>'society'])}}">Create Society</a>
-						</li>
-						<li>
-							<a href="{{route('registration',['create_role'=>'farmer'])}}">Create Farmer</a>
-						</li>
-						<li>
-							<a href="{{route('registration',['create_role'=>'staff'])}}">Create Staff</a>
-						</li>
-						<li>
-							<a href="{{route('registration',['create_role'=>'outlet'])}}">Create Outlet</a>
-						</li>
-						<li>
-							<a href="{{route('privatevehicle',['create_role'=>'privetvehicle'])}}">Private Vehicle</a>
-						</li>
-						<li>
-							<a href="{{route('registration',['create_role'=>'vehicle_owner'])}}">Public Vehicle</a>
-						</li>
-					</ul>
-				</li>
-				<li >
-					<a href="#root-master" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-road"></span> Root Master
-					</a>
-					<ul class="collapse list-unstyled " id="root-master">
-						<li>
-							<a href="{{route('rootmasterlist')}}">Root Master List</a>
-						</li>
-						<li>
-							<a href="{{route('newrootmasterform')}}">Add New Root Master</a>
-						</li>
-					</ul>
-				</li>
-				
-				<li >
-					<a href="#rate-chart" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-list"></span> Rate Chart
-					</a>
-					<ul class="collapse list-unstyled " id="rate-chart">
-						<li>
-							<a href="{{route('ratechartlist')}}">Current Reat Chart List</a>
-						</li>
-						<li>
-							<a href="{{route('newratechartform')}}">Create New Reat Chart</a>
-						</li>
-					</ul>
-				</li>
-				
-				<li>
-					<a href="#payment-management" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-money"></span> Account Management
-					</a>
-					<ul class="collapse list-unstyled" id="payment-management">
-						<li>
-							<a href="{{route('plant-allTransaction')}}">All Transition List</a>
-						</li>
-						<li>
-							<a href="{{route('plant-newTransaction')}}">New Transition</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="#vehicle" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-truck"></span> Vehicle
-					</a>
-					<ul class="collapse list-unstyled" id="vehicle">
-						<li>
-							<a href="#">Working Vehicle List</a>
-						</li>
-						<li>
-							<a href="#">Vehicle Appointed</a>
-						</li>
-						<li>
-							<a href="#">Vehicle Tracker</a>
-						</li>
-					</ul>
-				</li>
-				<li>
 					<a href="#ec" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-shopping-cart"></span> E-commerce
+						<span class="fa fa-cart-arrow-down"></span> Order
 					</a>
-					<ul class="collapse list-unstyled" id="ec">
+					<ul class="collapse list-unstyled " id="ec">
 						<li>
-							<a href="{{route('plant.listofproduct')}}">All Product List</a>
+							<a href="{{route('outlet_new_order',['id'=>$user_id])}}">New Order </a>
 						</li>
 						<li>
-							<a href="{{route('plant.addproduct')}}">Add New Product </a>
-						</li>
-						<!-- <li>
-							<a href="#">Offer Controller</a>
-						</li>
-						<li>
-							<a href="#">Page Controller</a>
-						</li> -->
-						<li>
-							<a href="{{route('plant.allOrderList')}}">Order List</a>
-						</li>
-						<li>
-							<a href="{{route('plant.neworderlist')}}">New Order List</a>
+							<a href="{{route('outlet_order_list',['id'=>$user_id])}}">All Order List</a>
 						</li>
 					</ul>
 				</li>
-				@endforeach
+				<li class="active">
+					<a href="#stock" data-toggle="collapse" aria-expanded="false">
+						<span class="fa fa-archive"></span> Stock
+					</a>
+					<ul class="collapse list-unstyled show" id="stock">
+						<li>
+							<a href="{{route('outlet_add_stock_form',['id'=>$user_id])}}">Add New Product</a>
+						</li>
+						<li>
+							<a href="{{route('outlet_stock_list',['id'=>$user_id])}}">Stock List</a>
+						</li>
+					</ul>
+				</li>
 				<li>
-					<a href="#profile" data-toggle="collapse" aria-expanded="false">
+					<a href="#"  aria-expanded="false">
 						<span class="fa fa-user"></span> Your Profile
 					</a>
-					<ul class="collapse list-unstyled" id="profile">
-						<li>
-							<a href="#">Profile</a>
-						</li>
-					</ul>
 				</li>
 				
 			</ul>
@@ -209,7 +102,6 @@
 
 		<!-- /Sidebar -->
 		<!-- Page Content -->
-	@foreach($users as $user)
 			<div id="content">
 			<!-- Top Navigation -->
 			<nav class="navbar navbar-default">
@@ -224,7 +116,7 @@
 						
 						<li class="nav-item">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-								<span class="fa fa-user-o" id="sidebarCollapse"></span>
+								<span class="fa fa-user" id="sidebarCollapse"></span>
 							</a>
 					
 							<div class="dropdown-menu proclinic-box-shadow2 profile animated flipInY">
@@ -260,35 +152,54 @@
 			</div>
 
 			<div class="container-fluid home">
-				<!-- <div class="row">
-					<div class="col-12">
-						
-					</div>
-					<div class="col-md-4">
-						<div class="widget-area proclinic-box-shadow ">
-							<div class="widget-left">
-								<span class="ti-user"></span>
-							</div>
-							<div class="widget-right">
-								<h4 class="wiget-title">Total Working Member</h4>
-								<span class="numeric ">200</span>
-							</div>
+				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
+					<h4 class="text-center py-3"><strong>Add New Product</strong></h4>
+					
+					<div style="width:100%;height: 2px;background-color: black"></div>
+					@if($msg)
+					<div class="row" id="msg_div">
+						@if($color=='green')
+						<div class="col-lg-8 col-sm-12 mx-auto my-2" style="background-color:rgb(255,187,119); border-radius: 10px; " id="add_data">
+							<h5 class="text-center py-2"><strong>{{$msg}}</strong></h5>
 						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="widget-area proclinic-box-shadow ">
-							<div class="widget-left">
-								<span class="ti-user"></span>
-							</div>
-							<div class="widget-right">
-								<h4 class="wiget-title">Total Farmers</h4>
-								<span class="numeric ">200</span>
-							</div>
+						@elseif($color=='red')
+						<div class="col-lg-8 col-sm-12 mx-auto my-2" style="background-color:rgb(202,4,54); border-radius: 10px; " id="not_add_data">
+							<h5 class="text-center py-2"><strong style="color: white">{{$msg}}</strong></h5>
 						</div>
+						@endif
 					</div>
-				</div> -->
-				
-
+					@endif
+					<form method="post" action="{{route('outlet_add_stock',['id'=>$user_id])}}">
+						@csrf
+						<div class="row">
+							<div class="col-lg-4 col-sm-10  my-2">
+							    <label>Product Name<span class="text-danger">*</span></label>
+							    <input type="text" class="form-control"  placeholder="Enter Product Name" id="productName" name="productName" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" required="" maxlength="50">
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2" id="vill_list">
+							    <label>Product Unit<span class="text-danger">*</span></label>
+							    <select class="form-control" required="" id="productUnit" name="productUnit">
+							    	<option value="">--* Select One *--</option>
+							    	<option value="kg">Kg</option>
+							    	<option value="litter">Litter</option>
+							    	<option value="number">Number</option>
+							    	<option value="other">Other</option>
+							    </select>
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2">    
+							    <label>Product Amount<span class="text-danger">*</span></label>
+							    <input type="text" class="form-control"  placeholder="Enter Product Amount" required=""  id="productAmount" name="productAmount" pattern="[0-9]*" maxlength="10">
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2">    
+							    <label>Product Price (Per Unit)<span class="text-danger">*</span></label>
+							    <input type="text" class="form-control"  placeholder="Enter Product Price" required=""  id="productPrice" name="productPrice" pattern="[0-9]*" maxlength="10">
+							</div>
+							<div class="col-lg-12  my-2">
+    							<button type="submit" class="btn btn-primary mx-auto"   style="cursor: pointer;">Submit</button>
+    						</div>
+						</div>
+					</form>
+				</div>
 				<div class="widget-area proclinic-box-shadow  my-3">
 					
 				</div>
@@ -308,12 +219,13 @@
 		</div>
 		<!-- /Page Content -->
 	</div>
+	{{csrf_field()}}
 	<!-- Back to Top -->
 	<a id="back-to-top" href="#" class="back-to-top">
 		<span class="ti-angle-up"></span>
 	</a>
 	<!-- /Back to Top -->
-	@endforeach
+
 	<!-- Jquery Library-->
 	<script src="{{ asset('/js/js/jquery-3.2.1.min.js') }}"></script>
 	<!-- Popper Library-->
@@ -328,5 +240,36 @@
 	<!-- Custom Script-->
 	<script src="{{ asset('/js/js/custom.js') }}"></script>
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(document).on('click','.editProduct',function(event){
+				var stockId=$(this).val();
+				$('#storeId').val("");
+				$('#productName').val("");
+				$('#unitPrice').val("");
+				$('#totalStock').val("");
+				$.post('{{ route("get_stock_details")}}',{'stock_id':stockId,'_token':$('input[name=_token]').val()},function(data){
+								$('#storeId').val(data['storage_id']);
+								$('#productName').val(data['product_name']);
+								$('#unitPrice').val(data['market_sell_price']);
+								$('#totalStock').val(data['total_stock']);
+    			});
+
+			});
+			
+			// $(document).on('click','#cart',function(e){
+			// 	// e.preventDefault();
+			// 	var id=$(this).val();
+
+			// 	 	$.post('{{ route("outlet_cart_table")}}',{'id':id,'_token':$('input[name=_token]').val()},function(data){
+				 		
+			// 	 		   $('#cartTable').html(data);
+   //  				});
+			// });
+
+			$('#msg_div').show();
+			setTimeout(function(){$('#msg_div').hide();}, 5000);
+		});
+	</script>
 </body>
 </html>

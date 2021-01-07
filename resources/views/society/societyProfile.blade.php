@@ -43,97 +43,84 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				<li >
-					<a href="#home" data-toggle="collapse" aria-expanded="false">
-						<span class="ti-home"></span> Home
+				<li class="active">
+					<a href="#home" data-toggle="collapse" aria-expanded="true">
+						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="home">
+					<ul class="collapse list-unstyled show" id="home">
 						<li>
-							<a href="societryHome.html">Home</a>
+							<a href="{{route('society.home')}}">Home</a>
 						</li>
 						<li>
-							<a href="dailyReport.html">Daily</a>
+							<a href="#">Daily</a>
 						</li>
 					</ul>
 				</li>
 				<li >
 					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="false">
-						<span class="ti-money"></span> Farmer
+						<span class="fa fa-male"></span> Farmer
 					</a>
 					<ul class="collapse list-unstyled " id="farmer-dasbord">
 						<li>
-							<a href="farmerList.html">All Farmers</a>
+							<a href="{{ route('society.farmerlist')}}">All Farmers</a>
 						</li>
 						<li>
-							<a href="../registrationForm.html">Create Framer</a>
+							<a href="{{ route('society.registration')}}">Create Framer</a>
 						</li>
 						
 					</ul>
 				</li>
+			
 				<li >
 					<a href="#rate-chart" data-toggle="collapse" aria-expanded="false">
-						<span class="ti-view-list"></span> Rate Chart
+						<span class="fa fa-list"></span> Rate Chart
 					</a>
 					<ul class="collapse list-unstyled " id="rate-chart">
 						<li>
-							<a href="showAllChart.html">Show All Chart</a>
+							<a href="#">Show All Chart</a>
 						</li>
-						<li>
-							<a href="#">Add New Category</a>
-						</li>
-						<!-- <li>
-							<a href="#">Chart Management</a>
-						</li>
-						<li>
-							<a href="#">Other</a>
-						</li> -->
 					</ul>
 				</li>
 				
-				<li>
+				<li >
 					<a href="#milk-management" data-toggle="collapse" aria-expanded="false">
-						<span class="ti-user"></span> Milk Management 
+						<span class="fa fa-tint"></span> Milk Management 
 					</a>
-					<ul class="collapse list-unstyled " id="milk-management">
+					<ul class="collapse list-unstyled" id="milk-management">
 						<li>
-							<a href="milkCollectionTable.html">Milk Collection Data</a>
+							<a href="{{ route('milkcollectiontable')}}">Milk Collection Table</a>
 						</li>
 						<li>
-							<a href="newMilkCollection.html">Add New Collection</a>
+							<a href="{{ route('milkcollection')}}">New Collection</a>
 						</li>
 						<li>
-							<a href="milkSellTable.html">Milk Dispatch Data</a>
+							<a href="{{ route('milkdispatchlist')}}">Milk Dispatch Table</a>
 						</li>
 						<li>
-							<a href="milkSell.html">Milk Dispatch</a>
+							<a href="{{ route('milkdispatchform')}}">Milk Dispatch</a>
 						</li>
 					</ul>
 				</li>
-
-				<li >
+	
+				<li>
 					<a href="#payment-management" data-toggle="collapse" aria-expanded="false">
-						<span class="ti-user"></span> Account Management
+						<span class="fa fa-money"></span> Account Management
 					</a>
-					<ul class="collapse list-unstyled " id="payment-management">
+					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="transitionTable.html">All Transition Data</a>
+							<a href="{{ route('society-allTransaction')}}">All Transition Data</a>
 						</li>
 						<li>
-							<a href="newTransition.html">New Transition</a>
+							<a href="{{ route('society-newTransaction')}}">New Transition</a>
 						</li>
 					</ul>
 				</li>
 				<li>
 					<a href="#vehicle" data-toggle="collapse" aria-expanded="false">
-						<span class="ti-user"></span> Vehicle
+						<span class="fa fa-truck"></span> Vehicle
 					</a>
 					<ul class="collapse list-unstyled" id="vehicle">
-						<!-- <li>
-							<a href="#">Receiving Receipt</a>
-						</li>
-						<li>
-							<a href="#">Dispatch Receipt</a>
-						</li> -->
+						
 						<li>
 							<a href="#">Vehicle Appointed</a>
 						</li>
@@ -144,26 +131,31 @@
 				</li>
 				<li>
 					<a href="#plant" data-toggle="collapse" aria-expanded="false">
-						<span class="ti-user"></span> Plant
+						<span class="fa fa-shopping-cart"></span> E-commerce
 					</a>
-					<ul class="collapse list-unstyled" id="plant">
+					<ul class="collapse list-unstyled" id="plant"> 
 						<li>
-							<a href="plantOrderList.html">All Old Orders</a>
+							<a href="{{route('society-order-list')}}">All Orders List</a>
 						</li>
 						<li>
-							<a href="newOrder.html">New Order</a>
+							<a href="{{route('society.neworder')}}">New Order</a>
+						</li>
+						<li>
+							<a href="{{route('society-sell-list')}}">All Sell List</a>
+						</li>
+						<li>
+							<a href="{{route('society.newsell')}}">New Sell</a>
 						</li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#profile" data-toggle="collapse" aria-expanded="true">
-						<span class="ti-user"></span> Your Profile
+				<li>
+					<a href="#profile" data-toggle="collapse" aria-expanded="false">
+						<span class="fa fa-user"></span> Your Profile
 					</a>
-					<ul class="collapse list-unstyled show" id="profile">
+					<ul class="collapse list-unstyled" id="profile">
 						<li>
-							<a href="societyProfile.html">Profile</a>
+							<a href="#">Profile</a>
 						</li>
-						
 					</ul>
 				</li>
 				

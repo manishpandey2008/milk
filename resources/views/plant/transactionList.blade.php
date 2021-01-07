@@ -26,7 +26,8 @@
 	<link rel="stylesheet" href="{{ asset('/css/css/jquery-jvectormap.css') }}">
 
 	<script src="{{ asset('/js/js/modernizr.min.js') }}"></script>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	 <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"> -->
+	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 
 <body>
@@ -44,7 +45,6 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				@foreach($users as $user)
 				<li >
 					<a href="#home" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-home"></span> Home
@@ -108,7 +108,7 @@
 						
 					</ul>
 				</li>
-				<li >
+				<li>
 					<a href="#root-master" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-road"></span> Root Master
 					</a>
@@ -122,11 +122,11 @@
 					</ul>
 				</li>
 				
-				<li class="active">
-					<a href="#rate-chart" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="#rate-chart" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-list"></span> Rate Chart
 					</a>
-					<ul class="collapse list-unstyled show" id="rate-chart">
+					<ul class="collapse list-unstyled " id="rate-chart">
 						<li>
 							<a href="{{route('ratechartlist',['id'=>$user['user_id']])}}">Current Reat Chart List</a>
 						</li>
@@ -136,11 +136,11 @@
 					</ul>
 				</li>
 				
-				<li>
-					<a href="#payment-management" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#payment-management" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-money"></span> Account Management
 					</a>
-					<ul class="collapse list-unstyled" id="payment-management">
+					<ul class="collapse list-unstyled show" id="payment-management">
 						<li>
 							<a href="{{route('plant-allTransaction',['id'=>$user['user_id']])}}">All Transition List</a>
 						</li>
@@ -165,7 +165,7 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li >
 					<a href="#ec" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-shopping-cart"></span> E-commerce
 					</a>
@@ -190,7 +190,6 @@
 						</li>
 					</ul>
 				</li>
-				@endforeach
 				<li>
 					<a href="#profile" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-user"></span> Your Profile
@@ -214,7 +213,6 @@
 					<div class="responsive-logo">
 						<a href="#"><img src class="logo" alt="logo"></a>
 					</div>
-					@foreach($users as $user)
 					<ul class="nav">
 						<li class="nav-item">
 							<span class="fa fa-bars" id="sidebarCollapse"></span>
@@ -240,7 +238,6 @@
 						</li>
 
 					</ul>
-					@endforeach
 				
 				</div>
 			</nav>
@@ -249,7 +246,7 @@
 			<!-- Page Title -->
 			<div class="row no-margin-padding">
 				<div class="col-md-6">
-					<h3 class="block-title">Rate Chart List</h3>
+					<h3 class="block-title">Transaction List</h3>
 				</div>
 				<div class="col-md-6">
 					<ol class="breadcrumb">
@@ -260,58 +257,108 @@
 				</div>
 			</div>
 
-			<div class="container-fluid home ">
-				<div class="row text-center">
-					<div class="col-md-4 col-sm-10 mx-auto ">
-						<div class="widget-area proclinic-box-shadow ">
-							<div class="widget-right">
-								<h3 class="wiget-title">PANDEY PLANT</h3>
-								<h4 class="wiget-title">( <strong>PLANT</strong> ) </h4>
-								<p>{{$user['user_id']}}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
+			<div class="container-fluid home">
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
-					<h3 class="text-center"><u>Rate Chart List</u></h3>
-					<div class="row">
-						<div class="col-lg-6 col-sm-12 mx-auto">
-							<div class="row">
-								<div class="col-6 my-2">
-									<select class="form-control" id="chart-name">
-										<option value="">--* Select One *--</option>
-										@foreach($chartList as $cl)
-										<option value="{{$cl}}">{{$cl}}</option>
-										@endforeach
-									</select>
-								</div>
-								<div class="col-6 my-2">
-									<button class="btn btn-primary" id="shart-show">Show Chart</button>
-								</div>
-							</div>
-						</div>
-					</div>
+					<h4 class="text-center py-3"><strong>Transaction List</strong></h4>
 					<div style="width:100%;height: 2px;background-color: black"></div>
-					<div class="row">
-						<div class="col-12 mx-auto">
-							<p class="text-center"><u>A-Cortege Chart</u><br>(S : 30 AND F: 40 )<br>Uploading Date :20/10/1997 </p>
+					<div class="row my-4">
+						<div class="col-lg-5 col-sm-10 mx-auto">
+							<button class="btn btn-success" style="width: 100%;" id="creditBtn">Credit List</button>
 						</div>
-						<div class="table-responsive data-table">
+						<div class="col-lg-5 col-sm-10 mx-auto">
+							<button class="btn btn-primary" style="width: 100%" id="debitBtn">Debit  List</button>
+						</div>
+					</div>
+
+				<div class="row">
+					<div class="my-3 col-12">
+						<h5 class="text-center" id="cr_name"><strong>Credit List</strong></h5>
+						<h5 class="text-center" id="dr_name" style="display: none;"><strong>Debit List</strong></h5>
+					</div>
+					<div class="my-2 col-6 mx-auto">
+						<input type="text" class="form-control" name="" style="width: 100%" placeholder="Search.............">
+					</div>
+					<div class="col-12 table-responsive my-2">
+						<table class="table text-center table-bordered table-hover table-striped " id="creditBody">
+							<thead >
+								<tr>
+									<th scope="col">No.</th>
+									<th scope="col">User Id</th>
+									<th scope="col">User Role</th>
+									<th scope="col">Credit Amount</th>
+									<th scope="col">Transiction Message</th>
+									<th scope="col">Credit Type</th>
+									<th scope="col">Transiction Photo</th>
+								</tr>
+							</thead>
+							<tbody >
+								@php
+								$count=0
+								@endphp
+								@foreach($trToList as $ttl)
+									@php
+									$count=$count+1
+									@endphp
+								<tr>
+									<td>{{$count}}</td>
+									<td>{{$ttl['transaction_from_id']}}</td>
+									<td>{{$ttl['transaction_from']}}</td>
+									<td>{{$ttl['transaction_amount']}}</td>
+									<td>{{$ttl['transaction_msg']}}</td>
+									<td>{{$ttl['transaction_type']}}</td>
+									<td>
+										<img src="{{$ttl['']}}" style="width: 70px;height: 70px;">
+									</td>
+								</tr>
+								@endforeach
+
+							</tbody>
 							
+						</table>
 
-							<!-- <a class="btn btn-primary">Update New</a> -->
-						</div>
-					</div>
 
-					<div>
-						
+						<table class="table text-center table-bordered table-hover table-striped " id="debitBody" style="display: none">
+							<thead >
+								<tr>
+									<th scope="col">No.</th>
+									<th scope="col">User Id</th>
+									<th scope="col">User Role</th>
+									<th scope="col">Debit Amount</th>
+									<th scope="col">Transiction Message</th>
+									<th scope="col">Debit Type</th>
+									<th scope="col">Status</th>
+									<th scope="col">Transiction Photo</th>
+								</tr>
+							</thead>
+							<tbody>
+								@php
+								$count=0
+								@endphp
+								@foreach($trFromList as $ttl)
+									@php
+									$count=$count+1
+									@endphp
+								<tr>
+									<td>{{$count}}</td>
+									<td>{{$ttl['transaction_to_id']}}</td>
+									<td>{{$ttl['transaction_to']}}</td>
+									<td>{{$ttl['transaction_amount']}}</td>
+									<td>{{$ttl['transaction_msg']}}</td>
+									<td>{{$ttl['transaction_type']}}</td>
+									<td>{{$ttl['transaction_to_status']}}</td>
+									<td>
+										<img src="{{$ttl['']}}" style="width: 70px;height: 70px;">
+									</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+
+
 					</div>
-					
 				</div>
-				<div class="container-fluid widget-area proclinic-box-shadow color-green my-3">
-					
-				</div>
+			</div>
+
 				<div class="container-fluid my-3 widget-area ">
 					<div class="row footer">
 						<div class="col-12 text-center my-5">
@@ -333,31 +380,37 @@
 	</a>
 	<!-- /Back to Top -->
 	{{csrf_field()}}
-	<!-- Jquery Library-->
-	<script src="{{ asset('/js/js/jquery-3.2.1.min.js') }}"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- Popper Library-->
 	<script src="{{ asset('/js/js/popper.min.js') }}"></script>
 	<!-- Bootstrap Library-->
 	<script src="{{ asset('/js/js/bootstrap.min.js') }}"></script>
 	<!-- morris charts -->
-	<script src="{{ asset('/js/charts/js/raphael-min.js') }}"></script>
-	<!-- <script src="{{ asset('/js/js/modernizr.min.js') }}../charts/js/morris.min.js"></script> -->
 	<script src="{{ asset('/js/js/custom-morris.js') }}"></script>
-
+	<!-- yajra table CDN --> 
+	<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 	<!-- Custom Script-->
 	<script src="{{ asset('/js/js/custom.js') }}"></script>
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
 
+	<script src="{{ asset('/js/js/dairy.js') }}"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			$(document).on('click','#shart-show',function(){
-				var dispId=$('#chart-name').val();
-				
-				$.post('{{ route("oneratechartlist")}}',{'data':dispId,'_token':$('input[name=_token]').val()},function(data){
+		$(document).ready(function(event){
+			$(document).on('click','#creditBtn',function(event){
+				$('#debitBody').hide();
+				$('#creditBody').show();
 
-					$('.data-table').html(data);
-    			});
+				$('#dr_name').hide();
+				$('#cr_name').show();
+			});
 
+			$(document).on('click','#debitBtn',function(event){
+				$('#creditBody').hide();
+				$('#debitBody').show();
+
+				$('#cr_name').hide();
+				$('#dr_name').show();
 			});
 		});
 	</script>

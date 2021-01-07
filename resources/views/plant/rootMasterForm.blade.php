@@ -99,6 +99,9 @@
 							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
+							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'outlet'])}}">Create Outlet</a>
+						</li>
+						<li>
 							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
 						<li>
@@ -141,10 +144,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="#">All Transition List</a>
+							<a href="{{route('plant-allTransaction',['id'=>$user['user_id']])}}">All Transition List</a>
 						</li>
 						<li>
-							<a href="#">New Transition</a>
+							<a href="{{route('plant-newTransaction',['id'=>$user['user_id']])}}">New Transition</a>
 						</li>
 					</ul>
 				</li>
@@ -262,10 +265,18 @@
 			<div class="container-fluid home">
 				
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
-					<div class="col-12 my-3">
+					<div class="col-12 py-3">
 						<h3 class="text-center">New Root Master Form</h3>
+						<hr>
 					</div>
-					<form method="post" action="{{route('addrootmaster',['id'=>$user_id])}}">
+					@if(session('msg'))
+					<div class="row ">
+						<div class="col-8 mx-auto text-center" style="background-color: rgb(255,147,147);width: 100%">
+							<p><strong class="my-2">{{session('msg')}}</strong></p>
+						</div>
+					</div>
+					@endif
+					<form method="post" action="{{route('addrootmaster',['id'=>$user_id])}}" enctype="multipart/form-data">
 						@csrf
 						<div class="row">
 							<div class="col-lg-4 col-sm-10  my-2" id="vill_list">

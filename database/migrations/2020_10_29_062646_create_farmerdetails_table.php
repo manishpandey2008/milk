@@ -19,10 +19,11 @@ class CreateFarmerdetailsTable extends Migration
             $table->string('plant_id',20);
             $table->string('bmc_id',20)->nullable();;
             $table->string('society_id',20);
+            $table->string('selected_chart_code',20);
             $table->string('name_in_hindi',50)->nullable();
             $table->string('father_name_eng',50);
             $table->string('father_name_hin',50)->nullable();
-            $table->string('village_name',30);
+            $table->string('village_name',50);
             $table->string('pin_code',6);
             $table->string('address');
             $table->string('gender',10);
@@ -36,10 +37,9 @@ class CreateFarmerdetailsTable extends Migration
             $table->string('ifsc_code',20);
             $table->string('aadhar_number',20);
             $table->string('aadhar_card_doc');
-            $table->string('opening_balance_type',10);
+            $table->string('opening_balance_type',20);
             $table->string('opening_amount',10);
-            $table->string('selected_chart_code',50);
-            $table->string('photo');
+            $table->string('remember_token',200);
             $table->timestamps();
         });
     }

@@ -13,13 +13,13 @@ use App\Models\Model\Society\Farmermilkcollection;
 use App\Models\Model\Plant\MilkDispatch;
 use Illuminate\Support\Facades\App;
 use App\Models\Test;
-
+use Validator;
 class MilkManagementController extends Controller
 {
-    public function milkCollectionForm($workrole1,$workole2,$id)
+    public function milkCollectionForm(Request $request)
     {
-    	if($workrole1=='farmer')
-    	{ 
+    	  $id=session('id_of_user');
+        $role=session('role_of_work');
     		$users=Registration::all()->where('user_id',$id)->first();
     		$farmer_list=Farmer::all()->where('society_id',$id)->pluck('user_id');
     		return view('society.newMilkCollection',[
@@ -27,11 +27,12 @@ class MilkManagementController extends Controller
     			'user_id'=>$id,
     			'farmer_list'=>$farmer_list,
     		]);
-    	}
+    	
     }
 
-     public function milkCollectionTable($id)
+     public function milkCollectionTable(Request $request)
     {
+      $id=session('id_of_user');
       $users=Registration::all()->where('user_id',$id)->first();
       $collection_data=Farmermilkcollection::all()->where('society_id',$id);
         return view('society.milkCollectionTable',[
@@ -95,10 +96,10 @@ class MilkManagementController extends Controller
          
      return "wrong Entery";
     	
-    	//return ['name'=>$y,'id'=>$x];
+    
     }
 
-    public function storeMilkData(){
+    public function storeMilkData(Request $request){
       $obj=request('data');
 
 
@@ -106,10 +107,8 @@ class MilkManagementController extends Controller
       $milk_collection=new Farmermilkcollection;
 
       $count=Farmermilkcollection::all()->count();
-
       
-      $milk_collection->collectionId=$count+1;
-      
+      $milk_collection->collectionId='fmc'.($count+1);
       $milk_collection->society_id=$society_id;
       $milk_collection->user_id=$obj['farmerId'];
       $milk_collection->milk_snf=$obj['snf'];
@@ -126,8 +125,8 @@ class MilkManagementController extends Controller
     }
 
 /////---------------------------------dispatch-------------------///// 
-    public function milkDispatchForm($role,$id){
-
+    public function milkDispatchForm(Request $request){
+      $id=session('id_of_user');
       $users=Registration::all()->where('user_id',$id)->first();
       $vehicle=Society::join('vehicle', 'societydetails.vehicle_id', '=', 'vehicle.vehicle_id')
           ->select('vehicle.vehicle_number','vehicle.vehicle_id')
@@ -140,9 +139,25 @@ class MilkManagementController extends Controller
         ]);
     }
 
-   
+    public function milkDispatch(Request $request){
+       $rules=[
+                'socirtyId'=>'required|max:20',
+                'vehicleId'=>'required|max:20',
+                'vehicleNumber'=>'required|max:30',
+                'milkWeight'=>'required|max:30',
+                'milkClr'=>'required|max:10',
+                'milkSnf'=>'required|max:10',
+                'milkFate'=>'max:10',
+                ];
 
-    public function milkDispatch($role,$id){
+        $validator=Validator::make($request->all(),$rules);
+          if ($validator->fails()) {
+            return response()->json( $validator->errors(),400);
+        }
+
+      $id=session('id_of_user');
+      $role=session('role_of_work');
+
       $milkdispatch=new MilkDispatch;
       $count=MilkDispatch::all()->count();
       $milkdispatch->dispatch_id='md'.($count+1);
@@ -154,18 +169,21 @@ class MilkManagementController extends Controller
       $milkdispatch->milk_weight=request('milkWeight');
       $milkdispatch->milk_clr=request('milkClr');
       $milkdispatch->milk_snf=request('milkSnf');
-      $milkdispatch->milk_rate=request('milkRate');
+      $milkdispatch->milk_rate=request('milkFate');
       $milkdispatch->vehicle_status='0';
       $milkdispatch->collector_role='plant';
       $milkdispatch->collector_id='plant001';
 
       $milkdispatch->save();
 
-       return redirect()->route('milkdispatchlist',['role'=>$role,'id'=>$id]);
+       return redirect()->route('milkdispatchlist');
     }
 
 
-    public function milkDispatchList($role,$id){
+    public function milkDispatchList(Request $request){
+        $id=session('id_of_user');
+        $role=session('role_of_work');
+
          $users=Registration::all()->where('user_id',$id)->first();
          $dispatch_list=MilkDispatch::all()->where('from_id',$id)->where('vehicle_status','1');
         return view('society.milkDispatchTable',[

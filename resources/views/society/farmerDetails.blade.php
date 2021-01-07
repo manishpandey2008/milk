@@ -44,29 +44,29 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				<li>
-					<a href="#home" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#home" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="home">
+					<ul class="collapse list-unstyled show" id="home">
 						<li>
-							<a href="{{route('society.home',['id'=>$user['user_id']])}}">Home</a>
+							<a href="{{route('society.home')}}">Home</a>
 						</li>
 						<li>
 							<a href="#">Daily</a>
 						</li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-male"></span> Farmer
 					</a>
-					<ul class="collapse list-unstyled show" id="farmer-dasbord">
+					<ul class="collapse list-unstyled " id="farmer-dasbord">
 						<li>
-							<a href="{{ route('society.farmerlist',['id'=>$user['user_id']])}}">All Farmers</a>
+							<a href="{{ route('society.farmerlist')}}">All Farmers</a>
 						</li>
 						<li>
-							<a href="{{ route('society.registration',['id'=>$user['user_id'],'role'=>'farmer'])}}">Create Framer</a>
+							<a href="{{ route('society.registration')}}">Create Framer</a>
 						</li>
 						
 					</ul>
@@ -89,16 +89,16 @@
 					</a>
 					<ul class="collapse list-unstyled" id="milk-management">
 						<li>
-							<a href="{{ route('milkcollectiontable',['id'=>$user['user_id']])}}">Milk Collection Table</a>
+							<a href="{{ route('milkcollectiontable')}}">Milk Collection Table</a>
 						</li>
 						<li>
-							<a href="{{ route('milkcollection',['role1'=>'farmer','role2'=>$user['working_role'],'id'=>$user['user_id']])}}">New Collection</a>
+							<a href="{{ route('milkcollection')}}">New Collection</a>
 						</li>
 						<li>
-							<a href="{{ route('milkdispatchlist',['role'=>$user['working_role'],'id'=>$user['user_id']])}}">Milk Dispatch Table</a>
+							<a href="{{ route('milkdispatchlist')}}">Milk Dispatch Table</a>
 						</li>
 						<li>
-							<a href="{{ route('milkdispatchform',['role'=>$user['working_role'],'id'=>$user['user_id']])}}">Milk Dispatch</a>
+							<a href="{{ route('milkdispatchform')}}">Milk Dispatch</a>
 						</li>
 					</ul>
 				</li>
@@ -109,10 +109,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="#">All Transition Data</a>
+							<a href="{{ route('society-allTransaction')}}">All Transition Data</a>
 						</li>
 						<li>
-							<a href="#">New Transition</a>
+							<a href="{{ route('society-newTransaction')}}">New Transition</a>
 						</li>
 					</ul>
 				</li>
@@ -136,10 +136,16 @@
 					</a>
 					<ul class="collapse list-unstyled" id="plant"> 
 						<li>
-							<a href="#">All Old Orders</a>
+							<a href="{{route('society-order-list')}}">All Orders List</a>
 						</li>
 						<li>
-							<a href="{{route('society.neworder',['id'=>$user['user_id']])}}">New Order</a>
+							<a href="{{route('society.neworder')}}">New Order</a>
+						</li>
+						<li>
+							<a href="{{route('society-sell-list')}}">All Sell List</a>
+						</li>
+						<li>
+							<a href="{{route('society.newsell')}}">New Sell</a>
 						</li>
 					</ul>
 				</li>
@@ -155,7 +161,6 @@
 				</li>
 				
 			</ul>
-			
 			
 		</nav>
 		<!-- /Sidebar -->
@@ -214,7 +219,7 @@
 					<div class="row">
 						<div class="col-lg-4 col-sm-12 mx-auto">
 							<div class="img-div my-5 text-center">
-								<img src="{{ asset('storage/image/user.jpg') }}">
+								<img src="{{ asset('storage/user_image/'.$fp['user_photo']) }}">
 								<p><span id="name">{{$fp['first_name'].' '.$fp['mid_name'].' '.$fp['last_name']}}</span><br>( {{$fp['working_role']}} )<br><strong>{{$fp['user_id']}}</strong><br>{{$fp['phone_number']}}</p>
 							</div>
 							<div class="profile-main">

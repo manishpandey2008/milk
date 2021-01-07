@@ -46,13 +46,13 @@
 			</div>
 			<ul class="list-unstyled components">
 				@foreach($users as $user)
-				<li >
-					<a href="#home" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#home" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="home">
+					<ul class="collapse list-unstyled show" id="home">
 						<li>
-							<a href="{{route('plant.home',['id'=>$user['user_id']])}}">Home</a>
+							<a href="{{route('plant.home')}}">Home</a>
 						</li>
 						<li>
 							<a href="#">Daily Current Report</a>
@@ -66,10 +66,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="milk-management">
 						<li>
-							<a href="{{route('plant.milk.collection.table',['id'=>$user['user_id']])}}">Milk Collection List</a>
+							<a href="{{route('plant.milk.collection.table')}}">Milk Collection List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.milk.collection',['id'=>$user['user_id']])}}">Milk Collection Notification</a>
+							<a href="{{route('plant.milk.collection')}}">Milk Collection Notification</a>
 						</li>
 						<li>
 							<a href="#">Milk Dispatch List</a>
@@ -79,31 +79,33 @@
 						</li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-users"></span> Members
 					</a>
-					<ul class="collapse list-unstyled show" id="farmer-dasbord">
+					<ul class="collapse list-unstyled " id="farmer-dasbord">
 						
 						<li>
-							<a href="{{route('memberlist',['id'=>$user['user_id']])}}">All Members</a>
+							<a href="{{route('memberlist')}}">All Members</a>
 						</li>
 						<li>						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'society'])}}">Create Society</a>
+							<a href="{{route('registration',['create_role'=>'society'])}}">Create Society</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'farmer'])}}">Create Farmer</a>
+							<a href="{{route('registration',['create_role'=>'farmer'])}}">Create Farmer</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
+							<a href="{{route('registration',['create_role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
-							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
+							<a href="{{route('registration',['create_role'=>'outlet'])}}">Create Outlet</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'vehicle_owner'])}}">Public Vehicle</a>
+							<a href="{{route('privatevehicle',['create_role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
-						
+						<li>
+							<a href="{{route('registration',['create_role'=>'vehicle_owner'])}}">Public Vehicle</a>
+						</li>
 					</ul>
 				</li>
 				<li >
@@ -112,10 +114,10 @@
 					</a>
 					<ul class="collapse list-unstyled " id="root-master">
 						<li>
-							<a href="{{route('rootmasterlist',['id'=>$user['user_id']])}}">Root Master List</a>
+							<a href="{{route('rootmasterlist')}}">Root Master List</a>
 						</li>
 						<li>
-							<a href="{{route('newrootmasterform',['id'=>$user['user_id']])}}">Add New Root Master</a>
+							<a href="{{route('newrootmasterform')}}">Add New Root Master</a>
 						</li>
 					</ul>
 				</li>
@@ -126,10 +128,10 @@
 					</a>
 					<ul class="collapse list-unstyled " id="rate-chart">
 						<li>
-							<a href="{{route('ratechartlist',['id'=>$user['user_id']])}}">Current Reat Chart List</a>
+							<a href="{{route('ratechartlist')}}">Current Reat Chart List</a>
 						</li>
 						<li>
-							<a href="{{route('newratechartform',['id'=>$user['user_id']])}}">Create New Reat Chart</a>
+							<a href="{{route('newratechartform')}}">Create New Reat Chart</a>
 						</li>
 					</ul>
 				</li>
@@ -140,10 +142,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="#">All Transition List</a>
+							<a href="{{route('plant-allTransaction')}}">All Transition List</a>
 						</li>
 						<li>
-							<a href="#">New Transition</a>
+							<a href="{{route('plant-newTransaction')}}">New Transition</a>
 						</li>
 					</ul>
 				</li>
@@ -169,19 +171,22 @@
 					</a>
 					<ul class="collapse list-unstyled" id="ec">
 						<li>
-							<a href="{{route('plant.listofproduct',['id'=>$user['user_id']])}}">All Product List</a>
+							<a href="{{route('plant.listofproduct')}}">All Product List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.addproduct',['id'=>$user['user_id']])}}">Add New Product </a>
+							<a href="{{route('plant.addproduct')}}">Add New Product </a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="#">Offer Controller</a>
 						</li>
 						<li>
 							<a href="#">Page Controller</a>
+						</li> -->
+						<li>
+							<a href="{{route('plant.allOrderList')}}">Order List</a>
 						</li>
 						<li>
-							<a href="#">Order List</a>
+							<a href="{{route('plant.neworderlist')}}">New Order List</a>
 						</li>
 					</ul>
 				</li>
@@ -266,20 +271,20 @@
 				</div>
 	<div class="container-fluid widget-area proclinic-box-shadow  my-3">
 					<h3 class="text-center py-3">Farmer Details Form</h3>
-					<form method="post" action="{{route('senddetails',['role'=>$role])}}">
+					<form method="post" action="{{route('senddetails',['create_role'=>$create_role])}}" enctype="multipart/form-data">
 						@csrf
 						<div class="row">
 			               <div class="col-lg-4 col-sm-12  my-2">
 			                  <label>User ID<span class="text-danger">*</span></label>
-			                    <input type="text" class="form-control" value="{{$create_user_id}}" readonly="" name="role">
+			                    <input type="text" class="form-control" value="{{$create_user_id}}" readonly="" name="userId">
 			                </div>
     						<div class="col-lg-4 col-sm-10  my-2">
     							<label>Plant ID<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="{{$user_id}}" id="first_name" readonly="">
+                                <input type="text" class="form-control" value="{{$user_id}}" name="plantId"  readonly="">
     						</div>
     						<div class="col-lg-4 col-sm-10  my-2">
                                 <label>BMC ID</label>
-                                <select class="form-control" name="bmcId" required="">
+                                <select class="form-control" name="bmc_id" required="">
                                 	<option value="">--* Select One *--</option>
                                 	@foreach($dropDownList as $ddl)
                                 	@if($ddl['working_role']=='bmc')
@@ -334,7 +339,7 @@
                                 	@foreach($village_list as $vl)
                                 	<option value="{{$vl}}">{{$vl}}</option>
                                 	@endforeach
-                                	<option value="none">Not In List</option>
+                                	<option value="0">Not In List</option>
                                 </select>
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2" id="new_vill" style="display: none">
@@ -417,10 +422,6 @@
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Aadhar Document (PDF)<span class="text-danger">*</span></label>
                                 <input type="file" class="form-control"  required="" name="aadharDoc">
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Photo<span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" placeholder="Enter Bank IFSC Code"  required="" name="photo">
                             </div>
                             
     						<div class="col-lg-12  my-2">

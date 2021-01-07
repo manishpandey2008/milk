@@ -27,6 +27,7 @@
 
 	<script src="{{ asset('/js/js/modernizr.min.js') }}"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -96,6 +97,9 @@
 						</li>
 						<li>
 							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
+						</li>
+						<li>
+							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'outlet'])}}">Create Outlet</a>
 						</li>
 						<li>
 							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
@@ -270,7 +274,7 @@
 							</div>
 						</div>
 						<div class="my-5">
-							<table class="table table-responsive-lg table-bordered table-hover table-striped text-center">
+							<table class="table table-responsive-lg table-bordered table-hover table-striped text-center" id="myTable">
 								<thead>
 									<th>RM ID</th>
 									<th>Root Name</th>
@@ -339,5 +343,11 @@
 	<!-- Custom Script-->
 	<script src="{{ asset('/js/js/custom.js') }}"></script>
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#myTable').DataTable();
+		} );
+	</script>
 </body>
 </html>

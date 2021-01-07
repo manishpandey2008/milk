@@ -50,14 +50,11 @@
 					</a>
 					<ul class="collapse list-unstyled show" id="nav-dashboard">
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Current Reports</a>
+							<a href="{{ route('farmer.home')}}">Current Reports</a>
 						</li>
 						<li>
-							<a href="{{ route('farmer.alldata',['plantId'=>$plant_id,'id'=>$user_id])}}">Total Milk Report</a>
+							<a href="{{ route('farmer.alldata')}}">Total Milk Report</a>
 						</li>
-						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Milk Notifiction</a>
-						</li> 
 					</ul>
 				</li>
 				<li >
@@ -66,7 +63,7 @@
 					</a>
 					<ul class="collapse list-unstyled " id="nav-patients">
 						<li>
-							<a href="{{ route('farmer.transition',['plantId'=>$plant_id,'id'=>$user_id])}}">All Payment</a>
+							<a href="{{ route('farmer.transition')}}">All Payment</a>
 						</li>
 						
 					</ul>
@@ -78,7 +75,10 @@
 					<ul class="collapse list-unstyled " id="shop">
 						
 						<li>
-							<a href="{{ route('farmer-order-list',['plantId'=>$plant_id,'id'=>$user_id])}}">Order List</a>
+							<a href="{{ route('farmer-order-list')}}">Order List</a>
+						</li>
+						<li>
+							<a href="{{ route('farmer-order-new')}}">New Order</a>
 						</li>
 					</ul>
 				</li>
@@ -88,7 +88,7 @@
 					</a>
 					<ul class="collapse list-unstyled" id="nav-doctors">
 						<li>
-							<a href="{{ route('farmer.profile',['plantId'=>$plant_id,'id'=>$user_id])}}">Profile</a>
+							<a href="{{ route('farmer.profile')}}">Profile</a>
 						</li>
 						
 					</ul>
@@ -155,7 +155,7 @@
 						<div class="widget-area proclinic-box-shadow color-red text-center">
 							<div class="">
 								<h3 class="wiget-title my-2">{{$fp['first_name'].' '.$fp['mid_name'].' '.$fp['last_name']}}</h3>
-								<p class="mb-2">( FARMER )<br><strong>{{$user_id}}</strong><br>{{$fp['phone_number']}}</p>
+								<p class="mb-2">( FARMER )<br><strong>{{$user_id}}</strong><br>{{$fp['phone_number']}}<br>Society ID :<strong> {{$fp['society_id']}}</strong></p>
 							</div>
 						</div>
 					</div>
@@ -164,21 +164,21 @@
 				
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3 text-center">
 					<div>
-						<h3 class="py-3"><strong>Current Milk Data</strong></h3>
+						<h3 class=" py-3"><strong>Current Milk Data</strong></h3>
 						<!-- <p>PlaSE Conform Your Milk Current Milk Collection Status</p> -->
 					</div>
 					<div class="devision_line"></div>
 					<div class="row">
 						<div class="col-12" id="farmer_dasbord_table">
 							<table class="table text-center table-bordered table-hover table-striped " >
-							  <thead class="thead-dark">
+							  <thead >
 							    <tr>
 							      <th scope="col">Date</th>
 							      <th scope="col">Shift</th>
 							      <th scope="col">Milk Wight (kg)</th>
 							      <th scope="col">Milk CLR Val</th>
 							      <th scope="col">Milk SNF Val</th>
-							      <th scope="col">Milk Rate</th>
+							      <th scope="col">Milk Fate</th>
 							      <th scope="col">Total Price </th>
 							      <th scope="col"></th>
 							    </tr>
@@ -214,213 +214,56 @@
 							</table>
 						</div>
 					</div>
-					<nav aria-label="Page navigation example ">
-						<ul class="pagination justify-content-center export-pagination">
-							<li class="page-item py-2 ">
-								<a class=" btn btn-primary" href="#"><span class="ti-file"></span> PDF</a>
-							</li>
-							<!-- <li class="page-item">
-								<a class="page-link" href="#"><span class="ti-align-justify"></span> Excel</a>
-							</li> -->
-						</ul>
-					</nav>
+					
 				</div>
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
-					<h3 class="text-center py-3"><strong>Rate Chart</strong></h3>
+					<h3 class="text-center py-3"><strong>Last 10 Milk Collection Report</strong></h3>
 					
 					<div style="width:100%;height: 2px;background-color: black"></div>
 					<div class="row">
-						<div class="col-12 mx-auto">
-							<p class="text-center"><u>{{$fp['selected_chart_code']}}</u><br>Uploading Date :20/10/1997 </p>
-						</div>
 						<div class="table-responsive">
-							<table class="table text-center table-bordered table-hover table-striped">
-								<thead>
-									<tr>
-									     <th scope="col">S/F</th>
-									     <th scope="col">4</th>
-									     <th scope="col">4.5</th>
-									     <th scope="col">5</th>
-									     <th scope="col">5.5</th>
-									     <th scope="col">6</th>
-									     <th scope="col">6.5</th>
-									     <th scope="col">7</th>
-									     <th scope="col">7.5</th>
-									     <th scope="col">8</th>
-									     <th scope="col">8.5</th>
-									     <th scope="col">9</th>
-									     <th scope="col">9.5</th>
-									     <th scope="col">10</th>
-									     <th scope="col">10.5</th>
-									     <th scope="col">11</th>
-									     <th scope="col">11.5</th>
-									     <th scope="col">12</th>
-									     <th scope="col">12.5</th>
-									     <th scope="col">13</th>
-									   </tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th>1</th>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-									</tr>
-									<tr>
-										<th>1</th>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-									</tr>
-									<tr>
-										<th>1</th>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-									</tr>
-									<tr>
-										<th>1</th>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-									</tr>
-									<tr>
-										<th>1</th>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-									</tr>
-									<tr>
-										<th>1</th>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-									</tr>
-									<tr>
-										<th>1</th>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-										<td>2.3</td>
-									</tr>
-								</tbody>
+							<table class="table text-center table-bordered table-hover table-striped " >
+							  <thead >
+							    <tr>
+							      <th scope="col">Date</th>
+							      <th scope="col">Shift</th>
+							      <th scope="col">Milk Wight (kg)</th>
+							      <th scope="col">Milk CLR Val</th>
+							      <th scope="col">Milk SNF Val</th>
+							      <th scope="col">Milk Fate</th>
+							      <th scope="col">Total Price </th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							  	<tbody>
+							  		@foreach($milk_coll as $nmc)
+							  			@php
+							  			$date=explode(' ',$nmc['created_at'])[0];
+							  			$time=explode(':',explode(' ',$nmc['created_at'])[1])[0];
+							  			@endphp
+							  	  <tr>
+							  	    <td>
+							  	  {{ $date}}
+							  		  </td>
+							  	    <td>
+							  	    	@if($time>=14)
+							  	    	Evening
+							  	    	@else
+							  	    	Morning
+							  	    	@endif
+							  	    </td>
+							  	    <td>{{$nmc['milk_weight']}}</td>
+							  	    <td>{{$nmc['milk_clr']}}</td>
+							  	    <td>{{$nmc['milk_snf']}}</td>
+							  	    <td>{{$nmc['milk_rate']}}</td>
+							  	    <td>{{$nmc['milk_price']}}</td>
+							  	  </tr>
+							  	  @endforeach
+							  	</tbody>
+							  </tbody>
 							</table>
-
-							<!-- <a class="btn btn-primary">Update New</a> -->
 						</div>
 					</div>
-
 					<div>
 						
 					</div>

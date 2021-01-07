@@ -13,7 +13,7 @@
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="{{ asset('/css/css/bootstrap.min.css') }}">
 	<!-- themify icons CSS -->
-	<!-- <link rel="stylesheet" href="{{ asset('/css/css/themify-icons.css') }}"> -->
+	<link rel="stylesheet" href="{{ asset('/css/css/themify-icons.css') }}">
 	<!-- Animations CSS -->
 	<link rel="stylesheet" href="{{ asset('/css/css/animate.css') }}">
 	<!-- Main CSS -->
@@ -30,6 +30,7 @@
 </head>
 
 <body>
+	
 	<!-- Pre Loader -->
 	<div class="loading">
 		<div class="spinner">
@@ -37,6 +38,7 @@
 			<div class="double-bounce2"></div>
 		</div>
 	</div>
+
 	<div class="wrapper">
 		<!-- Sidebar -->
 		<nav id="sidebar" class="proclinic-bg">
@@ -44,62 +46,63 @@
 				<a href="#"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active">
-					<a href="#nav-dashboard" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="{{ route('outlet_home',['id'=>$user_id])}}" aria-expanded="false">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled show" id="nav-dashboard">
+				</li>
+				<li>
+					<a href="#transaction" data-toggle="collapse" aria-expanded="false">
+						<span class="fa fa-cart-arrow-down"></span> Transaction
+					</a>
+					<ul class="collapse list-unstyled" id="transaction">
 						<li>
-							<a href="{{ route('farmer.home')}}">Current Reports</a>
+							<a href="#">New Transaction </a>
 						</li>
 						<li>
-							<a href="{{ route('farmer.alldata')}}">Total Milk Report</a>
+							<a href="#">All Transaction List</a>
+						</li>
+					</ul>
+				</li>
+				<li class="active">
+					<a href="#ec" data-toggle="collapse" aria-expanded="true">
+						<span class="fa fa-cart-arrow-down"></span> Order
+					</a>
+					<ul class="collapse list-unstyled show" id="ec">
+						<li>
+							<a href="{{route('outlet_new_order',['id'=>$user_id])}}">New Order </a>
+						</li>
+						<li>
+							<a href="{{route('outlet_order_list',['id'=>$user_id])}}">All Order List</a>
 						</li>
 					</ul>
 				</li>
 				<li >
-					<a href="#nav-patients" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-inr"></span> Transaction
+					<a href="#stock" data-toggle="collapse" aria-expanded="false">
+						<span class="fa fa-archive"></span> Stock
 					</a>
-					<ul class="collapse list-unstyled " id="nav-patients">
+					<ul class="collapse list-unstyled " id="stock">
 						<li>
-							<a href="{{ route('farmer.transition')}}">All Payment</a>
-						</li>
-						
-					</ul>
-				</li>
-				<li >
-					<a href="#shop" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-shopping-cart"></span> Shope
-					</a>
-					<ul class="collapse list-unstyled " id="shop">
-						
-						<li>
-							<a href="{{ route('farmer-order-list')}}">Order List</a>
+							<a href="{{route('outlet_add_stock_form',['id'=>$user_id])}}">Add New Product</a>
 						</li>
 						<li>
-							<a href="{{ route('farmer-order-new')}}">New Order</a>
+							<a href="{{route('outlet_stock_list',['id'=>$user_id])}}">Stock List</a>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<a href="#nav-doctors" data-toggle="collapse" aria-expanded="false">
+					<a href="#"  aria-expanded="false">
 						<span class="fa fa-user"></span> Your Profile
 					</a>
-					<ul class="collapse list-unstyled" id="nav-doctors">
-						<li>
-							<a href="{{ route('farmer.profile')}}">Profile</a>
-						</li>
-						
-					</ul>
 				</li>
 				
 			</ul>
 			
 		</nav>
+
 		<!-- /Sidebar -->
 		<!-- Page Content -->
-		<div id="content">
+			<div id="content">
 			<!-- Top Navigation -->
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -122,20 +125,19 @@
 									{{$user['first_name']." ".$user['mid_name']." ".$user['last_name']}}
 								
 								</h5>
-									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="fa fa-sign-out"></span> Logout </a>
+									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="ti-power-off"></span> Logout </a>
 										<br>
-									<a href="{{ route('farmer.profile')}}"><span class="fa fa-user"></span> Profile </a>
+									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="ti-power-off"></span> Profile </a>
 									
 							</div>
 							
 						</li>
+
 					</ul>
 				
 				</div>
 			</nav>
-			<!-- /Top Navigation -->
-			<!-- Breadcrumb -->
-			<!-- Page Title -->
+			
 			<div class="row no-margin-padding">
 				<div class="col-md-6">
 					<h3 class="block-title">Home</h3>
@@ -150,9 +152,8 @@
 			</div>
 
 			<div class="container-fluid home">
-
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
-					<h4 class="text-center py-3"><strong>Sell Table</strong></h4>
+					<h4 class="text-center py-3"><strong>Order Table</strong></h4>
 					<p class="text-center my-2" id="sell_conf_msg"></p>
 					<div style="width:100%;height: 2px;background-color: black"></div>
 					
@@ -166,20 +167,48 @@
 						@php
 						$count=0
 						@endphp
-						@foreach($sell_list as $key => $value)
+						@foreach($order_list as $key => $value)
 
 						<div class="col-12 my-2">
+						@if($value[0]['order_by_status']=='1')
+							<button style="width: 100%;background-color: rgb(191,255,191);border-radius: 10px;cursor: pointer;" data-toggle="collapse" href="#collapseExample{{$count}}" aria-expanded="false" aria-controls="collapseExample{{$count}}" value="{{$key}}" class="sell_list_button">
 
-							<button style="width: 100%;background-color: #abcdef;border-radius: 10px;cursor: pointer;" data-toggle="collapse" href="#collapseExample{{$count}}" aria-expanded="false" aria-controls="collapseExample{{$count}}" value="{{$key}}" class="sell_list_button">
 								<p class="pt-1 px-2"><span class="float-left"><strong>{{$key}}</strong></span><span class="float-right">{{$value[0]['created_at']}}</span></p>
 							</button>
-						
-							<div class="collapse" id="collapseExample{{$count}}">
+						@else
+							<button style="width: 100%;background-color: rgb(255,255,198);border-radius: 10px;cursor: pointer;" data-toggle="collapse" href="#collapseExample{{$count}}" aria-expanded="false" aria-controls="collapseExample{{$count}}" value="{{$key}}" class="sell_list_button">
+
+								<p class="pt-1 px-2"><span class="float-left"><strong>{{$key}}</strong></span><span class="float-right">{{$value[0]['created_at']}}</span></p>
+							</button>
+						@endif
+
+							<div class="collapse" id="collapseExample{{$count}}" style="border: 1px solid black">
+		
 								<div class="row">
-									
-									<div class="col-lg-2 col-sm-6 my-2 mx-auto">
-										<input type="text" class="form-control" name=""  readonly="" id="total_price{{$key}}">
+									<div class="col-12 table-responsive my-2">
+										<div class="text-center my-2">
+											<h5 style="color: rgb(170,85,0);"><strong>Current Status</strong></h5>
+										</div>
+										<table class="table text-center table-bordered table-hover table-striped " >
+										  <thead >
+										    <tr>
+										      <th scope="col">Total Price</th>
+											  <th scope="col">Plant Receiving Status</th>
+										      <th scope="col">Plant Dispatch Status</th>
+										      <th scope="col">Vehicle status</th>
+										      <th scope="col">Your Conformation</th>
+										    </tr>
+										  </thead>
+										  <tbody id="table1{{$key}}">
+										  		
+										  </tbody>
+										</table>
 									</div>
+								</div>
+
+								<div style="width:100%;height: 2px;background-color: black"></div>
+								<div class="text-center my-2">
+									<h5 style="color: rgb(170,85,0);"><strong>Product Details</strong></h5>
 								</div>
 								<div class="row">
 									<div class="col-12 table-responsive my-2">
@@ -191,8 +220,8 @@
 										      <th scope="col">Total Price</th>
 										    </tr>
 										  </thead>
-										  <tbody id="table{{$key}}">
-
+										  <tbody id="table2{{$key}}">
+										  		
 										  </tbody>
 										</table>
 									</div>
@@ -205,11 +234,16 @@
 						@endforeach
 					</div>
 				</div>
+
+				<div class="widget-area proclinic-box-shadow  my-3">
+					
+				</div>
+			
 				<div class="container-fluid my-3 widget-area ">
 					<div class="row footer">
 						<div class="col-12 text-center my-5">
 							<h5><span class="ti-comments"></span> Need Help</h5>
-							<h6><strong>Pandey Socity</strong></h6>
+							<h6><strong>Pandey Plant</strong></h6>
 							<h6><span class="ti-mobile"></span> 9798316421</h6>
 							<h6><span class="ti-email"></span> smpandey.2008@gmail.com</h6>
 						</div>	
@@ -220,12 +254,13 @@
 		</div>
 		<!-- /Page Content -->
 	</div>
+	{{csrf_field()}}
 	<!-- Back to Top -->
 	<a id="back-to-top" href="#" class="back-to-top">
 		<span class="ti-angle-up"></span>
 	</a>
 	<!-- /Back to Top -->
-	{{csrf_field()}}
+
 	<!-- Jquery Library-->
 	<script src="{{ asset('/js/js/jquery-3.2.1.min.js') }}"></script>
 	<!-- Popper Library-->
@@ -240,21 +275,30 @@
 	<!-- Custom Script-->
 	<script src="{{ asset('/js/js/custom.js') }}"></script>
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
-	<script src="{{ asset('/js/js/dairy.js') }}"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$(document).on('click','.sell_list_button',function(){
 				var val=$(this).val();
-				var tabalid='table'+val;
-				var totalPrice='total_price'+val;
+				var tabalid1='table1'+val;
+				var tabalid2='table2'+val;
 
-				$.post('{{ route("society-sell-product-data")}}',{'data':val,'_token':$('input[name=_token]').val()},function(data){
-							$("#"+tabalid).html(data['html']);
-							$("#"+totalPrice).val(data['total_price']);
+				$.post('{{ route("outlet_order_product_data")}}',{'data':val,'_token':$('input[name=_token]').val()},function(data){
+
+							$("#"+tabalid1).html(data['html2']);
+							$("#"+tabalid2).html(data['html1']);
     				});
 			});
 
+			$(document).on('click','.outlet_conform',function(){
+				var val=$(this).val();
+				var id='conf'+val;
+				$.post('{{ route("outlet_order_conformation")}}',{'data':val,'_token':$('input[name=_token]').val()},function(data){
+							$("#"+id).html(data);
+
+    				});
+			});
 		});
 	</script>
+	
 </body>
 </html>

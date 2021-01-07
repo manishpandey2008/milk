@@ -22,21 +22,21 @@ class CreateVehicleTable extends Migration
             $table->string('vehicle_type',30);
             $table->string('vehicle_number',30)->unique();
             $table->string('vehicle_rc_number',30)->unique();
-            // $table->string('Driver_id',30);
+            $table->string('Driver_id',30);
             $table->string('vehicle_rc_doc');
             $table->string('expiry_date_rc',30);
             $table->string('insurance_number',30)->unique();
             $table->string('insurance_doc');
             $table->string('expiry_date_insurance',30);
-            // $table->string('pollution_id_number',30)->unique();
-            // $table->string('pollution_doc');
-            // $table->string('expiry_date_pollutions_id',30);
+            $table->string('pollution_id_number',30)->unique();
+            $table->string('pollution_doc');
+            $table->string('expiry_date_pollutions_id',30);
             $table->string('fitness_id_number',30)->unique();
             $table->string('fitness_id_doc');
             $table->string('expiry_date_fitness_id',30);
             $table->string('commission_type')->nullable();
-           // $table->string('commission_amount')->nullable();
-          $table->string('photo');
+            $table->string('commission_amount')->nullable();
+            $table->string('photo');
             
             $table->timestamps();
         });

@@ -27,10 +27,10 @@
 
 	<script src="{{ asset('/js/js/modernizr.min.js') }}"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 </head>
 
 <body>
+	
 	<!-- Pre Loader -->
 	<div class="loading">
 		<div class="spinner">
@@ -38,135 +38,71 @@
 			<div class="double-bounce2"></div>
 		</div>
 	</div>
+
 	<div class="wrapper">
 		<!-- Sidebar -->
 		<nav id="sidebar" class="proclinic-bg">
 			<div class="sidebar-header">
-				<a href="index.html"><img src="" class="logo" alt="logo"></a>
+				<a href="#"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active">
-					<a href="#home" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="{{ route('outlet_home',['id'=>$user_id])}}" aria-expanded="false">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled show" id="home">
+				</li>
+				<li>
+					<a href="#transaction" data-toggle="collapse" aria-expanded="false">
+						<span class="fa fa-cart-arrow-down"></span> Transaction
+					</a>
+					<ul class="collapse list-unstyled" id="transaction">
 						<li>
-							<a href="{{route('society.home')}}">Home</a>
+							<a href="#">New Transaction </a>
 						</li>
 						<li>
-							<a href="#">Daily</a>
+							<a href="#">All Transaction List</a>
+						</li>
+					</ul>
+				</li>
+				<li class="active">
+					<a href="#ec" data-toggle="collapse" aria-expanded="true">
+						<span class="fa fa-cart-arrow-down"></span> Order
+					</a>
+					<ul class="collapse list-unstyled show" id="ec">
+						<li>
+							<a href="{{route('outlet_new_order',['id'=>$user_id])}}">New Order </a>
+						</li>
+						<li>
+							<a href="{{route('outlet_order_list',['id'=>$user_id])}}">All Order List</a>
 						</li>
 					</ul>
 				</li>
 				<li >
-					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-male"></span> Farmer
+					<a href="#stock" data-toggle="collapse" aria-expanded="false">
+						<span class="fa fa-archive"></span> Stock
 					</a>
-					<ul class="collapse list-unstyled " id="farmer-dasbord">
+					<ul class="collapse list-unstyled " id="stock">
 						<li>
-							<a href="{{ route('society.farmerlist')}}">All Farmers</a>
+							<a href="{{route('outlet_add_stock_form',['id'=>$user_id])}}">Add New Product</a>
 						</li>
 						<li>
-							<a href="{{ route('society.registration')}}">Create Framer</a>
-						</li>
-						
-					</ul>
-				</li>
-			
-				<li >
-					<a href="#rate-chart" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-list"></span> Rate Chart
-					</a>
-					<ul class="collapse list-unstyled " id="rate-chart">
-						<li>
-							<a href="#">Show All Chart</a>
-						</li>
-					</ul>
-				</li>
-				
-				<li >
-					<a href="#milk-management" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-tint"></span> Milk Management 
-					</a>
-					<ul class="collapse list-unstyled" id="milk-management">
-						<li>
-							<a href="{{ route('milkcollectiontable')}}">Milk Collection Table</a>
-						</li>
-						<li>
-							<a href="{{ route('milkcollection')}}">New Collection</a>
-						</li>
-						<li>
-							<a href="{{ route('milkdispatchlist')}}">Milk Dispatch Table</a>
-						</li>
-						<li>
-							<a href="{{ route('milkdispatchform')}}">Milk Dispatch</a>
-						</li>
-					</ul>
-				</li>
-	
-				<li>
-					<a href="#payment-management" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-money"></span> Account Management
-					</a>
-					<ul class="collapse list-unstyled" id="payment-management">
-						<li>
-							<a href="{{ route('society-allTransaction')}}">All Transition Data</a>
-						</li>
-						<li>
-							<a href="{{ route('society-newTransaction')}}">New Transition</a>
+							<a href="{{route('outlet_stock_list',['id'=>$user_id])}}">Stock List</a>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<a href="#vehicle" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-truck"></span> Vehicle
-					</a>
-					<ul class="collapse list-unstyled" id="vehicle">
-						
-						<li>
-							<a href="#">Vehicle Appointed</a>
-						</li>
-						<li>
-							<a href="#">Vehicle Details</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="#plant" data-toggle="collapse" aria-expanded="false">
-						<span class="fa fa-shopping-cart"></span> E-commerce
-					</a>
-					<ul class="collapse list-unstyled" id="plant"> 
-						<li>
-							<a href="{{route('society-order-list')}}">All Orders List</a>
-						</li>
-						<li>
-							<a href="{{route('society.neworder')}}">New Order</a>
-						</li>
-						<li>
-							<a href="{{route('society-sell-list')}}">All Sell List</a>
-						</li>
-						<li>
-							<a href="{{route('society.newsell')}}">New Sell</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="#profile" data-toggle="collapse" aria-expanded="false">
+					<a href="#"  aria-expanded="false">
 						<span class="fa fa-user"></span> Your Profile
 					</a>
-					<ul class="collapse list-unstyled" id="profile">
-						<li>
-							<a href="#">Profile</a>
-						</li>
-					</ul>
 				</li>
 				
 			</ul>
 			
 		</nav>
+
 		<!-- /Sidebar -->
 		<!-- Page Content -->
-		<div id="content">
+			<div id="content">
 			<!-- Top Navigation -->
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
@@ -180,8 +116,9 @@
 						
 						<li class="nav-item">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-								<span class="fa fa-user-o" id="sidebarCollapse"></span>
+								<span class="fa fa-user" id="sidebarCollapse"></span>
 							</a>
+					
 							<div class="dropdown-menu proclinic-box-shadow2 profile animated flipInY">
 								<h5>
 									
@@ -190,16 +127,17 @@
 								</h5>
 									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="ti-power-off"></span> Logout </a>
 										<br>
-									<a href="#"><span class="ti-power-off"></span> Profile </a>
+									<a href="{{route('plant.logout',['id'=>$user['user_id']])}}"><span class="ti-power-off"></span> Profile </a>
+									
 							</div>
+							
 						</li>
+
 					</ul>
 				
 				</div>
 			</nav>
-			<!-- /Top Navigation -->
-			<!-- Breadcrumb -->
-			<!-- Page Title -->
+			
 			<div class="row no-margin-padding">
 				<div class="col-md-6">
 					<h3 class="block-title">Home</h3>
@@ -212,7 +150,6 @@
 					</ol>
 				</div>
 			</div>
-
 
 			<div class="container-fluid home">
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
@@ -233,7 +170,7 @@
 					</div>
 					<div class="row collapse" id="collapseExample">
 						<div class="col-12 table-responsive my-4">
-							<table class="table text-center table-bordered table-hover table-striped " id="myTable1">
+							<table class="table text-center table-bordered table-hover table-striped " >
 								<thead >
 									<tr>
 									  <th scope="col">Name</th>
@@ -248,16 +185,20 @@
 							</table>
 						</div>
 							<div class="col-4 mx-auto">
-								<form method="post" action="{{ route('society-order-product')}}">
+								<form method="post" action="{{ route('outlet_final_order',['id'=>$user_id])}}">
 									@csrf
 									<button class="btn btn-primary mb-2" style="width: 100%" id="final_order">Order</button>
 								</form>
 							</div>
 						</div>
-					
+					<div class="row">
+						<div class="col-lg-6 col-sm-12 mx-auto my-2">
+							<input type="text" name="" class="form-control" placeholder="Search..........." style="width: 100%">
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-12 table-responsive my-4">
-							<table class="table text-center table-bordered table-hover table-striped " id="myTable">
+							<table class="table text-center table-bordered table-hover table-striped " >
 							  <thead >
 							    <tr>
 								  <th scope="col">Name</th>
@@ -292,7 +233,7 @@
 							  			{{$sell}}
 							  		</td>
 							  		<td scope="col">
-							  			<img src="{{asset('storage/product_photo/'.$pl['product_photo'])}}" style="width: 80px;height: 80px">
+							  			<img src="" style="width: 80px;height: 80px">
 							  		</td>
 							  		<td scope="col">
 							  			<button class="btn btn-primary add_prduct" value="{{$pl['product_id']}}" data-toggle="modal" data-target=".myModal">Add</button>
@@ -304,7 +245,7 @@
 						</div>
 					</div>
 				</div>
-			<!-----------------------------MODEL------------------>
+				<!-----------------------------MODEL------------------>
 				<div class="modal fade myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
@@ -314,7 +255,7 @@
 				        <div id="add_msg" style="display: ;">
 				        	<p class="text-center my-2"><strong>This product is alrady added in cart</strong></p>
 				        </div>
-				        <form method="post" action="{{ route('society.addcart')}}" id="add_product_form">
+				        <form method="post" action="{{ route('outlet_addcart',['id'=>$user_id])}}" id="add_product_form">
 				        	@csrf
 							<div class="row">
 						        <div class="col-lg-6 col-sm-10  my-2">
@@ -348,6 +289,10 @@
 
 			<!--------------------------MODEL--------------------->
 
+				<div class="widget-area proclinic-box-shadow  my-3">
+					
+				</div>
+			
 				<div class="container-fluid my-3 widget-area ">
 					<div class="row footer">
 						<div class="col-12 text-center my-5">
@@ -363,12 +308,13 @@
 		</div>
 		<!-- /Page Content -->
 	</div>
+	{{csrf_field()}}
 	<!-- Back to Top -->
 	<a id="back-to-top" href="#" class="back-to-top">
 		<span class="ti-angle-up"></span>
 	</a>
 	<!-- /Back to Top -->
-	{{csrf_field()}}
+
 	<!-- Jquery Library-->
 	<script src="{{ asset('/js/js/jquery-3.2.1.min.js') }}"></script>
 	<!-- Popper Library-->
@@ -383,8 +329,6 @@
 	<!-- Custom Script-->
 	<script src="{{ asset('/js/js/custom.js') }}"></script>
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
-	<script src="{{ asset('/js/js/dairy.js') }}"></script>
-
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$(document).on('click','.add_prduct',function(event){
@@ -393,16 +337,13 @@
 				$('#productName').val("");
 				$('#productCount').val("");
 				$('#totalPrice').val("");
-				$.post('{{ route("society.productdata")}}',{'product_id':product_id,'_token':$('input[name=_token]').val()},function(data){
-							console.log(data['data']);
+				$.post('{{ route("outlet_getProductData")}}',{'product_id':product_id,'_token':$('input[name=_token]').val()},function(data){
 								if(data['data']=='0'){
 									$("#add_product_form").hide();
 									$('#add_msg').show();
 								}else{
 									$('#add_msg').hide();
 									$("#add_product_form").show();
-
-
 									$('#productId').val(product_id);
 									$('#productName').val(data['data']['product_name']);
 									$('#productUnit').text(data['data']['product_unit']);
@@ -433,7 +374,7 @@
 				// e.preventDefault();
 				var id=$(this).val();
 
-				 	$.post('{{ route("society-cart-table")}}',{'id':id,'_token':$('input[name=_token]').val()},function(data){
+				 	$.post('{{ route("outlet_cart_table")}}',{'id':id,'_token':$('input[name=_token]').val()},function(data){
 				 		
 				 		   $('#cartTable').html(data);
     				});
@@ -442,13 +383,6 @@
 			$('#msg_div').show();
 			setTimeout(function(){$('#msg_div').hide();}, 5000);
 		});
-	</script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready( function () {
-		    $('#myTable').DataTable();
-		     $('#myTable1').DataTable();
-		} );
 	</script>
 </body>
 </html>

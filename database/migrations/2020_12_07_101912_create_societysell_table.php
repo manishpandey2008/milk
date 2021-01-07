@@ -17,9 +17,11 @@ class CreateSocietysellTable extends Migration
             $table->id();
             $table->string('cart_id',20)->unique();
             $table->string('order_id',20)->nullable();
+            $table->string('sell_by',20);
+            $table->string('sell_by_status',5)->nullable();
             $table->string('order_status',5);
-            $table->string('farmer_id',20);
-            $table->string('farmer_name',30);
+            $table->string('consumer_id',20);
+            $table->string('consumer_name',30);
             $table->string('product_name',20);
             $table->string('amount',10);
             $table->string('price',10);

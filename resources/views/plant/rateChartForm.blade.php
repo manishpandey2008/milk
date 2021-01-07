@@ -44,14 +44,13 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				@foreach($users as $user)
-				<li >
-					<a href="#home" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#home" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="home">
+					<ul class="collapse list-unstyled show" id="home">
 						<li>
-							<a href="{{route('plant.home',['id'=>$user['user_id']])}}">Home</a>
+							<a href="{{route('plant.home')}}">Home</a>
 						</li>
 						<li>
 							<a href="#">Daily Current Report</a>
@@ -65,10 +64,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="milk-management">
 						<li>
-							<a href="{{route('plant.milk.collection.table',['id'=>$user['user_id']])}}">Milk Collection List</a>
+							<a href="{{route('plant.milk.collection.table')}}">Milk Collection List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.milk.collection',['id'=>$user['user_id']])}}">Milk Collection Notification</a>
+							<a href="{{route('plant.milk.collection')}}">Milk Collection Notification</a>
 						</li>
 						<li>
 							<a href="#">Milk Dispatch List</a>
@@ -85,50 +84,52 @@
 					<ul class="collapse list-unstyled " id="farmer-dasbord">
 						
 						<li>
-							<a href="{{route('memberlist',['id'=>$user['user_id']])}}">All Members</a>
+							<a href="{{route('memberlist')}}">All Members</a>
 						</li>
 						<li>						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'society'])}}">Create Society</a>
+							<a href="{{route('registration',['create_role'=>'society'])}}">Create Society</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'farmer'])}}">Create Farmer</a>
+							<a href="{{route('registration',['create_role'=>'farmer'])}}">Create Farmer</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
+							<a href="{{route('registration',['create_role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
-							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
+							<a href="{{route('registration',['create_role'=>'outlet'])}}">Create Outlet</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'vehicle_owner'])}}">Public Vehicle</a>
+							<a href="{{route('privatevehicle',['create_role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
-						
+						<li>
+							<a href="{{route('registration',['create_role'=>'vehicle_owner'])}}">Public Vehicle</a>
+						</li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#root-master" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="#root-master" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-road"></span> Root Master
 					</a>
-					<ul class="collapse list-unstyled show" id="root-master">
+					<ul class="collapse list-unstyled " id="root-master">
 						<li>
-							<a href="{{route('rootmasterlist',['id'=>$user['user_id']])}}">Root Master List</a>
+							<a href="{{route('rootmasterlist')}}">Root Master List</a>
 						</li>
 						<li>
-							<a href="{{route('newrootmasterform',['id'=>$user['user_id']])}}">Add New Root Master</a>
+							<a href="{{route('newrootmasterform')}}">Add New Root Master</a>
 						</li>
 					</ul>
 				</li>
 				
-				<li class="active">
-					<a href="#rate-chart" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="#rate-chart" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-list"></span> Rate Chart
 					</a>
-					<ul class="collapse list-unstyled show" id="rate-chart">
+					<ul class="collapse list-unstyled " id="rate-chart">
 						<li>
-							<a href="{{route('ratechartlist',['id'=>$user['user_id']])}}">Current Reat Chart List</a>
+							<a href="{{route('ratechartlist')}}">Current Reat Chart List</a>
 						</li>
 						<li>
-							<a href="{{route('newratechartform',['id'=>$user['user_id']])}}">Create New Reat Chart</a>
+							<a href="{{route('newratechartform')}}">Create New Reat Chart</a>
 						</li>
 					</ul>
 				</li>
@@ -139,10 +140,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="#">All Transition List</a>
+							<a href="{{route('plant-allTransaction')}}">All Transition List</a>
 						</li>
 						<li>
-							<a href="#">New Transition</a>
+							<a href="{{route('plant-newTransaction')}}">New Transition</a>
 						</li>
 					</ul>
 				</li>
@@ -168,10 +169,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="ec">
 						<li>
-							<a href="{{route('plant.listofproduct',['id'=>$user['user_id']])}}">All Product List</a>
+							<a href="{{route('plant.listofproduct')}}">All Product List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.addproduct',['id'=>$user['user_id']])}}">Add New Product </a>
+							<a href="{{route('plant.addproduct')}}">Add New Product </a>
 						</li>
 						<!-- <li>
 							<a href="#">Offer Controller</a>
@@ -180,14 +181,13 @@
 							<a href="#">Page Controller</a>
 						</li> -->
 						<li>
-							<a href="{{route('plant.allOrderList',['id'=>$user['user_id']])}}">Order List</a>
+							<a href="{{route('plant.allOrderList')}}">Order List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.neworderlist',['id'=>$user['user_id']])}}">New Order List</a>
+							<a href="{{route('plant.neworderlist')}}">New Order List</a>
 						</li>
 					</ul>
 				</li>
-				@endforeach
 				<li>
 					<a href="#profile" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-user"></span> Your Profile
@@ -211,7 +211,7 @@
 					<div class="responsive-logo">
 						<a href="#"><img src class="logo" alt="logo"></a>
 					</div>
-					@foreach($users as $user)
+					
 					<ul class="nav">
 						<li class="nav-item">
 							<span class="fa fa-bars" id="sidebarCollapse"></span>
@@ -237,7 +237,7 @@
 						</li>
 
 					</ul>
-					@endforeach
+				
 				
 				</div>
 			</nav>
@@ -281,97 +281,106 @@
 						</div>
 					@endif
 					<h3 class="text-center py-3"><strong>Rate Chart</strong></h3>
-					<!-- <form method="post" action="{{ route('addratechart',['id'=>$user['user_id']])}}">
-						@csrf
-						<div class="row">
-							<div class="col-lg-4 col-sm-12 my-2">
-								<label>Chart Category<span class="text-danger">*</span></label>
-								<select class="form-control" id="chatCategory" name="chatCategory">
-									<option value="">--* Select One Category*--</option>
-									<option value="a">A</option>
-									<option value="b">B</option>
-									<option value="c">C</option>
-								</select>
-							</div>
-							<div class="col-lg-4 col-sm-12 my-2">
-								<label>Char Formula</label>
-								<input type="text" name="cartFormula" readonly="" class="form-control" id="cartFormula">
-							</div>
-							<div class="col-lg-4 col-sm-12 my-2">
-								
-							</div>
-							<div class="col-lg-4 col-sm-12 my-2">
-								<label>Staring Value Of X <span class="text-danger">*</span></label>
-								<input type="number" name="minOfX" class="form-control" min="0">
-							</div>
-							<div class="col-lg-4 col-sm-12 my-2">
-								<label>End Value Of X <span class="text-danger">*</span></label>
-								<input type="number" name="maxOfX" class="form-control" min="0">
-							</div>
-							<div class="col-lg-4 col-sm-12 my-2">
-								<label>Difference Value Of X <span class="text-danger">*</span></label>
-								<input type="number" name="diffOfX" class="form-control" min="0">
-							</div>
-							<div class="col-lg-4 col-sm-12 my-2">
-								<label>Staring Value Of Y <span class="text-danger">*</span></label>
-								<input type="number" name="minOfY" class="form-control" min="0">
-							</div>
-							<div class="col-lg-4 col-sm-12 my-2">
-								<label>End Value Of Y <span class="text-danger">*</span></label>
-								<input type="number" name="maxOfY" class="form-control" min="0">
-							</div>
-							<div class="col-lg-4 col-sm-12 my-2">
-								<label>Difference Value Of Y <span class="text-danger">*</span></label>
-								<input type="number" name="diffOfY" class="form-control" min="0">
-							</div>
-							<div class="col-lg-12  my-2">
-	    						<button class="btn btn-primary mx-auto"  id="resiter_btn" name="register" style="cursor: pointer;">Submit </button>
-	    					</div>
-						</div>
-					</form> -->
 					
-					<div style="width:100%;height: 2px;background-color: black"></div>
-						<form method="post" action="{{route('formulacheck')}}" onsubmit="return checkFormula(this)">
+					<!-- <div style="width:100%;height: 2px;background-color: black"></div> -->
+					<div class="row py-2">
+						<div class="col-lg-6 col-sm-10 mx-auto">
+							<select class="form-control" id="selectRate">
+								<option value="kg">KG Rate</option>
+								<option value="self">Self Rate</option>
+							</select>
+						</div>
+					</div>
+					<hr>
+					<form method="post" action="{{route('formulacheck')}}" id="kgForm" hidden="">
 						@csrf
 						<div class="row">
 
 							<div class="col-lg-4 col-sm-12 my-2">
-								<label>Name Of Rate Chat<span class="text-danger">*</span></label>
-								<input type="text" name="chartName" class="form-control" id="chartName" required="">
-								
+								<label>Name Of Rate Chart<span class="text-danger">*</span></label>
+								<input type="text" name="chartName" class="form-control" id="chartName" required="" placeholder="Enter Rate Chart Name">
 							</div>
-
 							<div class="col-lg-4 col-sm-12 my-2">
-								<label>A<span class="text-danger">*</span></label>
-								<select class="form-control" id="val_a" name="val_a" required="">
+								<label> Market Rate Type<span class="text-danger">*</span></label>
+								<select class="form-control" id="rateType" name="rateType" required="">
 									<option value="">--* Select One Category*--</option>
-									<option value="clr">CLR</option>
-									<option value="snf">SNF</option>
-									<option value="fat">FAT</option>
+									<option value="52/48">52/48 Type</option>
+									<option value="60/40">60/40 Type</option>
+									<option value="50/50">50/50 Type</option>
 								</select>
-								<p style="color: red;font-size: 12px;display: none" id="msg_a" class="text-center">Not Valid: Both A And B Are Same</p>
 							</div>
 							<div class="col-lg-4 col-sm-12 my-2">
-								<label>B<span class="text-danger">*</span></label>
-								<select class="form-control" id="val_b" name="val_b" required="">
-									<option value="">--* Select One Category*--</option>
-									<option value="clr">CLR</option>
-									<option value="snf">SNF</option>
-									<option value="fat">FAT</option>
-								</select>
-								<p style="color: red;font-size: 12px;display: none;" id="msg_b" class="text-center">Not Valid: Both A And B Are Same</p>
+								<label>Market Rate Value<span class="text-danger">*</span></label>
+								<input type="text" name="rateVal" class="form-control" id="rateVal" required="" placeholder="Enter Market Rate Value" readonly="">
 							</div>
 							<div class="col-lg-4 col-sm-12 my-2">
-								<label>Rate = <span class="text-danger">*</span></label>
-								<input type="text" name="formula" id="formula" class="form-control" placeholder="2*A+B" pattern="[A-B0-9.*+/-]{2,}" title="Enter only A-B 0-9 . * + / - " required="">
+								<label>Fat<span class="text-danger">*</span></label>
+								<input type="text" name="fatVal" class="form-control" id="fatVal" required="" readonly="">
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>Snf<span class="text-danger">*</span></label>
+								<input type="text" name="snfVal" class="form-control" id="snfVal" required="" readonly="" >
 							</div>
 							<div class="col-12 my-2">
-								<button class="btn btn-primary">Save</button>
+								<button type="submit" class="btn btn-primary">Save</button>
 							</div>
 						</div>
 					</form>
 
-				
+				<form method="post" action="{{route('formulacheck')}}" id="selfForm">
+						@csrf
+						<div class="row">
+
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>Name Of Rate Chart<span class="text-danger">*</span></label>
+								<input type="text" name="chartName" class="form-control" id="chartName" required="" placeholder="Enter Rate Chart Name">
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>	From FAT<span class="text-danger">*</span></label>
+								<input type="text" name="fatVal" class="form-control" id="fatVal" required="" >
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>To FAT<span class="text-danger">*</span></label>
+								<input type="text" name="snfVal" class="form-control" id="snfVal" required=""  >
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>	From SNF<span class="text-danger">*</span></label>
+								<input type="text" name="fatVal" class="form-control" id="fatVal" required="" >
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>To SNF<span class="text-danger">*</span></label>
+								<input type="text" name="snfVal" class="form-control" id="snfVal" required=""  >
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>Starting Rate<span class="text-danger">*</span></label>
+								<input type="text" name="snfVal" class="form-control" id="snfVal" required="" >
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>Starting FAT<span class="text-danger">*</span></label>
+								<input type="text" name="fatVal" class="form-control" id="fatVal" required="">
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>Starting SNF<span class="text-danger">*</span></label>
+								<input type="text" name="snfVal" class="form-control" id="snfVal" required="" >
+							</div>
+							<div class="col-lg-4 col-sm-12 my-2">
+								<label>No Of Group<span class="text-danger">*</span></label>
+								<select class="form-control" id="noOfGrp" name="noOfGrp" required="">
+									<option value="">--* Select No Of Group*--</option>
+									@for($i=1;$i<=10;$i++)
+									<option value="{{$i}}">{{$i}}</option>
+									@endfor
+								</select>
+							</div>
+							<div class="row" id="fatGrp">
+							</div>
+							<div class="row" id="snfGrp">
+							</div>
+							<div class="col-12 my-2">
+								<button type="submit" class="btn btn-primary">Save</button>
+							</div>
+						</div>
+					</form>
 					
 				</div>
 				<div class="container-fluid widget-area proclinic-box-shadow color-green my-3">
@@ -430,85 +439,59 @@
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
 
 	<script type="text/javascript">
-		$(document).ready(function () {
-			$(document).on('click','#val_a',function(){
-				var a=$(this).val();
-				var b=$('#val_b').val();
-				if(a && b){
-					if(a==b)
-					{
-						$('#msg_b').hide();
-						$('#msg_a').show();
+		
+		$(document).ready(function(){
+			$(document).on('change','#rateType',function(){
+				$('#rateVal').val("");
+				var rateType=$('#rateType').val();
+				if (rateType) { $('#rateVal').removeAttr('readonly');}
+				else{ $('#rateVal').attr('readonly','readonly');}
+			});
+			$(document).on('change','#rateVal',function(){
+				var rateVal=$(this).val();
+				var rateType=$('#rateType').val();
+				if(rateVal){
+					if (rateType=='52/48') {
+						var fat=(rateVal*52)/ 650;
+						var snf=(rateVal*48)/ 900;
+					}else if (rateType=='60/40') {
+						var fat =(rateVal*60)/650;
+						var snf =rateVal*50/850 ;
 					}else{
-
-					$('#msg_a').hide();
-					$('#msg_b').hide();
+						var fat=(rateVal*50)/ 650;
+						var snf=(rateVal*50)/ 850;
 					}
+					$('#fatVal').val(fat);
+					$('#snfVal').val(snf);
 				}
 			});
-			$(document).on('click','#val_b',function(){
-				var b=$(this).val();
-				var a=$('#val_a').val();
-
-				if(a && b)
-				{
-					if(a==b)
-					{
-						$('#msg_b').show();
-						$('#msg_a').hide();
-					}else{
-					$('#msg_a').hide();
-					$('#msg_b').hide();
-					}
+			$(document).on('change','#selectRate',function(){
+				var selectVal=$(this).val();
+				if(selectVal=='kg'){
+					$('#kgForm').show();
+					$('#selfForm').hide();
+				}else{
+					$('#kgForm').hide();
+					$('#selfForm').show();
 				}
+			});
+			$(document).on('change','#noOfGrp',function(){
+				var val=$(this).val();
+				var html1="";
+				var html2="";
+				html1='<div class="col-12 my-2"><h4><strong>FAT Steps</strong></h4></div>';
+				for (var i = 1;i<=val; i++) {
+					html1+='<div class="col-lg-2 col-sm-6 my-2"><label>Fat Step <span class="text-danger">*</span></label><input type="text" name="fatStep[]" class="form-control" required=""></div><div class="col-lg-2 col-sm-6 my-2"><label>Add Rate Fat 1<span class="text-danger">*</span></label><input type="text" name="addRatF[]" class="form-control" id="fatVal" required="" ></div>';
+				}
+				$('#fatGrp').html(html1);
+				html2='<div class="col-12 my-2"><h4><strong>SNF Steps</strong></h4></div>';
+				for (var i = 1;i<=val; i++) {
+					html2+='<div class="col-lg-2 col-sm-6 my-2"><label>Snf Step <span class="text-danger">*</span></label><input type="text" name="snfStep[]" class="form-control" required=""></div><div class="col-lg-2 col-sm-6 my-2"><label>Add Rate Snf 1<span class="text-danger">*</span></label><input type="text" name="addRatF" class="form-control"  required="" ></div>';
+				}
+				$('#snfGrp').html(html2);
 			});
 		});
-
-		function checkFormula(form){
-		   var password1 = form.formula.value; 
-		   var x=0;
-
-		   $.post('{{ route("formulacheck")}}',{'data':password1,'_token':$('input[name=_token]').val()},function(data){
-		   			console.log(data);
-					
-    			});
-		  
-		   return false;
-		   // if(password1!=password2){
-		   //  alert ("\nPassword did not match: Please try again...") 
-		   //  return false; 
-		   // }
-		   // else{
-		   //  return true;
-		   // }
-		}
 	</script>
-	<!-- <script type="text/javascript">
-		$(document).ready(function () {
-			$(".notification").on('click',function(){
-				var v=$(this).html();
-				$('#noti').has(".abcd").removeClass("abcd");
-				$('#noti').html(v);
-				
-			})
-			$('#chatCategory').on('click',function(){
-					var val=$(this).val();
-					console.log(val);
-
-					if(val=='a')
-					{
-						$('#cartFormula').attr('value','2X+Y');
-					}
-					else if(val=='b')
-					{
-						$('#cartFormula').attr('value','2X+Y+2');
-					}
-					else if(val=='c')
-					{
-						$('#cartFormula').attr('value','2X+Y+4');
-					}
-			});
-		})
-	</script> -->
+	
 </body>
 </html>

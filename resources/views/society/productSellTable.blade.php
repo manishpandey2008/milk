@@ -44,13 +44,13 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				<li >
-					<a href="#home" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#home" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="home">
+					<ul class="collapse list-unstyled show" id="home">
 						<li>
-							<a href="{{route('society.home',['id'=>$user['user_id']])}}">Home</a>
+							<a href="{{route('society.home')}}">Home</a>
 						</li>
 						<li>
 							<a href="#">Daily</a>
@@ -63,10 +63,10 @@
 					</a>
 					<ul class="collapse list-unstyled " id="farmer-dasbord">
 						<li>
-							<a href="{{ route('society.farmerlist',['id'=>$user['user_id']])}}">All Farmers</a>
+							<a href="{{ route('society.farmerlist')}}">All Farmers</a>
 						</li>
 						<li>
-							<a href="{{ route('society.registration',['id'=>$user['user_id'],'role'=>'farmer'])}}">Create Framer</a>
+							<a href="{{ route('society.registration')}}">Create Framer</a>
 						</li>
 						
 					</ul>
@@ -89,16 +89,16 @@
 					</a>
 					<ul class="collapse list-unstyled" id="milk-management">
 						<li>
-							<a href="{{ route('milkcollectiontable',['id'=>$user['user_id']])}}">Milk Collection Table</a>
+							<a href="{{ route('milkcollectiontable')}}">Milk Collection Table</a>
 						</li>
 						<li>
-							<a href="{{ route('milkcollection',['role1'=>'farmer','role2'=>$user['working_role'],'id'=>$user['user_id']])}}">New Collection</a>
+							<a href="{{ route('milkcollection')}}">New Collection</a>
 						</li>
 						<li>
-							<a href="{{ route('milkdispatchlist',['role'=>$user['working_role'],'id'=>$user['user_id']])}}">Milk Dispatch Table</a>
+							<a href="{{ route('milkdispatchlist')}}">Milk Dispatch Table</a>
 						</li>
 						<li>
-							<a href="{{ route('milkdispatchform',['role'=>$user['working_role'],'id'=>$user['user_id']])}}">Milk Dispatch</a>
+							<a href="{{ route('milkdispatchform')}}">Milk Dispatch</a>
 						</li>
 					</ul>
 				</li>
@@ -109,10 +109,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="#">All Transition Data</a>
+							<a href="{{ route('society-allTransaction')}}">All Transition Data</a>
 						</li>
 						<li>
-							<a href="#">New Transition</a>
+							<a href="{{ route('society-newTransaction')}}">New Transition</a>
 						</li>
 					</ul>
 				</li>
@@ -130,22 +130,22 @@
 						</li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#plant" data-toggle="collapse" aria-expanded="true">
+				<li>
+					<a href="#plant" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-shopping-cart"></span> E-commerce
 					</a>
-					<ul class="collapse list-unstyled show" id="plant"> 
+					<ul class="collapse list-unstyled" id="plant"> 
 						<li>
-							<a href="#">All Old Orders</a>
+							<a href="{{route('society-order-list')}}">All Orders List</a>
 						</li>
 						<li>
-							<a href="{{route('society.neworder',['id'=>$user['user_id']])}}">New Order</a>
+							<a href="{{route('society.neworder')}}">New Order</a>
 						</li>
 						<li>
-							<a href="{{route('society-sell-list',['id'=>$user['user_id']])}}">All Sell List</a>
+							<a href="{{route('society-sell-list')}}">All Sell List</a>
 						</li>
 						<li>
-							<a href="{{route('society.newsell',['id'=>$user['user_id']])}}">New Sell</a>
+							<a href="{{route('society.newsell')}}">New Sell</a>
 						</li>
 					</ul>
 				</li>
@@ -217,13 +217,8 @@
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
 					<h4 class="text-center py-3"><strong>Sell Table</strong></h4>
 					<p class="text-center my-2" id="sell_conf_msg"></p>
-					<div style="width:100%;height: 2px;background-color: black"></div>
+					<hr>
 					
-					<div class="row" id="farmerSerchDiv">
-						<div class="col-lg-6 col-sm-12 mx-auto my-2">
-							<input type="text"  class="form-control" id="farmerId" placeholder="Search...................." style="width: 100%">
-						</div>
-					</div>
 
 					<div class="row">
 						@php
@@ -235,7 +230,7 @@
 
 							<button style="width: 100%;background-color: #abcdef;border-radius: 10px;cursor: pointer;" data-toggle="collapse" href="#collapseExample{{$count}}" aria-expanded="false" aria-controls="collapseExample{{$count}}" value="{{$key}}" class="sell_list_button">
 								<p class="pt-1 px-2"><span class="float-left"><strong>{{$key}}</strong></span><span class="float-right">{{$value[0]['created_at']}}</span></p>
-								<p class="pb-1 text-center"><span>{{$value[0]['farmer_name']}}<strong>({{$value[0]['farmer_id']}})</strong></span></p>
+								<p class="pb-1 text-center"><span>{{$value[0]['consumer_name']}}<strong>({{$value[0]['consumer_id']}})</strong></span></p>
 							</button>
 						
 							<div class="collapse" id="collapseExample{{$count}}">

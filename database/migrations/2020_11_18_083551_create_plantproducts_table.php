@@ -25,7 +25,7 @@ class CreatePlantproductsTable extends Migration
             $table->string('product_price',10);
             $table->string('product_offer',10)->nullable();
             $table->string('product_photo')->nullable();
-
+            $table->rememberToken();
             $table->timestamps();
         });
     }

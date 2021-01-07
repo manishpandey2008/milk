@@ -28,6 +28,7 @@
 	<script src="{{ asset('/js/js/modernizr.min.js') }}"></script>
 	 <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"> -->
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -46,13 +47,13 @@
 			</div>
 			<ul class="list-unstyled components">
 				@foreach($users as $user)
-				<li >
-					<a href="#home" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#home" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-home"></span> Home
 					</a>
-					<ul class="collapse list-unstyled " id="home">
+					<ul class="collapse list-unstyled show" id="home">
 						<li>
-							<a href="{{route('plant.home',['id'=>$user['user_id']])}}">Home</a>
+							<a href="{{route('plant.home')}}">Home</a>
 						</li>
 						<li>
 							<a href="#">Daily Current Report</a>
@@ -66,10 +67,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="milk-management">
 						<li>
-							<a href="{{route('plant.milk.collection.table',['id'=>$user['user_id']])}}">Milk Collection List</a>
+							<a href="{{route('plant.milk.collection.table')}}">Milk Collection List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.milk.collection',['id'=>$user['user_id']])}}">Milk Collection Notification</a>
+							<a href="{{route('plant.milk.collection')}}">Milk Collection Notification</a>
 						</li>
 						<li>
 							<a href="#">Milk Dispatch List</a>
@@ -79,31 +80,33 @@
 						</li>
 					</ul>
 				</li>
-				<li class="active">
-					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="#farmer-dasbord" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-users"></span> Members
 					</a>
-					<ul class="collapse list-unstyled show" id="farmer-dasbord">
+					<ul class="collapse list-unstyled " id="farmer-dasbord">
 						
 						<li>
-							<a href="{{route('memberlist',['id'=>$user['user_id']])}}">All Members</a>
+							<a href="{{route('memberlist')}}">All Members</a>
 						</li>
 						<li>						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'society'])}}">Create Society</a>
+							<a href="{{route('registration',['create_role'=>'society'])}}">Create Society</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'farmer'])}}">Create Farmer</a>
+							<a href="{{route('registration',['create_role'=>'farmer'])}}">Create Farmer</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
+							<a href="{{route('registration',['create_role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
-							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
+							<a href="{{route('registration',['create_role'=>'outlet'])}}">Create Outlet</a>
 						</li>
 						<li>
-							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'vehicle_owner'])}}">Public Vehicle</a>
+							<a href="{{route('privatevehicle',['create_role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
-						
+						<li>
+							<a href="{{route('registration',['create_role'=>'vehicle_owner'])}}">Public Vehicle</a>
+						</li>
 					</ul>
 				</li>
 				<li >
@@ -112,10 +115,10 @@
 					</a>
 					<ul class="collapse list-unstyled " id="root-master">
 						<li>
-							<a href="{{route('rootmasterlist',['id'=>$user['user_id']])}}">Root Master List</a>
+							<a href="{{route('rootmasterlist')}}">Root Master List</a>
 						</li>
 						<li>
-							<a href="{{route('newrootmasterform',['id'=>$user['user_id']])}}">Add New Root Master</a>
+							<a href="{{route('newrootmasterform')}}">Add New Root Master</a>
 						</li>
 					</ul>
 				</li>
@@ -126,10 +129,10 @@
 					</a>
 					<ul class="collapse list-unstyled " id="rate-chart">
 						<li>
-							<a href="{{route('ratechartlist',['id'=>$user['user_id']])}}">Current Reat Chart List</a>
+							<a href="{{route('ratechartlist')}}">Current Reat Chart List</a>
 						</li>
 						<li>
-							<a href="{{route('newratechartform',['id'=>$user['user_id']])}}">Create New Reat Chart</a>
+							<a href="{{route('newratechartform')}}">Create New Reat Chart</a>
 						</li>
 					</ul>
 				</li>
@@ -140,10 +143,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="#">All Transition List</a>
+							<a href="{{route('plant-allTransaction')}}">All Transition List</a>
 						</li>
 						<li>
-							<a href="#">New Transition</a>
+							<a href="{{route('plant-newTransaction')}}">New Transition</a>
 						</li>
 					</ul>
 				</li>
@@ -163,16 +166,16 @@
 						</li>
 					</ul>
 				</li>
-				<li >
-					<a href="#ec" data-toggle="collapse" aria-expanded="true">
+				<li>
+					<a href="#ec" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-shopping-cart"></span> E-commerce
 					</a>
 					<ul class="collapse list-unstyled" id="ec">
 						<li>
-							<a href="{{route('plant.listofproduct',['id'=>$user['user_id']])}}">All Product List</a>
+							<a href="{{route('plant.listofproduct')}}">All Product List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.addproduct',['id'=>$user['user_id']])}}">Add New Product </a>
+							<a href="{{route('plant.addproduct')}}">Add New Product </a>
 						</li>
 						<!-- <li>
 							<a href="#">Offer Controller</a>
@@ -181,10 +184,10 @@
 							<a href="#">Page Controller</a>
 						</li> -->
 						<li>
-							<a href="{{route('plant.allOrderList',['id'=>$user['user_id']])}}">Order List</a>
+							<a href="{{route('plant.allOrderList')}}">Order List</a>
 						</li>
 						<li>
-							<a href="{{route('plant.neworderlist',['id'=>$user['user_id']])}}">New Order List</a>
+							<a href="{{route('plant.neworderlist')}}">New Order List</a>
 						</li>
 					</ul>
 				</li>
@@ -261,18 +264,13 @@
 
 			<div class="container-fluid home">
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
-					<h4 class="text-center my-3">All Members Table</h4>
+					<h4 class="text-center py-3">All Members Table</h4>
 
-					<div class="row my-2">
-						<div class="col-lg-6 col-sm-6 mx-auto">
-							<input type="text" name="" placeholder="Search............" class="form-control">
-						</div>
-					</div>
-					<div style="width:100%;height: 2px;background-color: black"></div>
+					<hr>
 
-					<div class="row">
+					<div class="row py-4">
 						<div class="col-12" >
-							<table class="table table-responsive-lg table-bordered table-hover table-striped text-center" id="member_list">
+							<table class="table table-responsive-lg table-bordered table-hover table-striped text-center" id="myTable">
 									<thead>
 										<tr>
 											<th scope="col">User ID</th>
@@ -366,6 +364,12 @@
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
 
 	<!-- <script src="{{ asset('/js/js/dairy.js') }}"></script> -->
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#myTable').DataTable();
+		} );
+	</script>
 
 </body>
 </html>

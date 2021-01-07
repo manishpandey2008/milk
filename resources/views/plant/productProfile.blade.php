@@ -98,6 +98,9 @@
 							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
+							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'outlet'])}}">Create Outlet</a>
+						</li>
+						<li>
 							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
 						<li>
@@ -140,10 +143,10 @@
 					</a>
 					<ul class="collapse list-unstyled" id="payment-management">
 						<li>
-							<a href="#">All Transition List</a>
+							<a href="{{route('plant-allTransaction',['id'=>$user['user_id']])}}">All Transition List</a>
 						</li>
 						<li>
-							<a href="#">New Transition</a>
+							<a href="{{route('plant-newTransaction',['id'=>$user['user_id']])}}">New Transition</a>
 						</li>
 					</ul>
 				</li>

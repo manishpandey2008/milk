@@ -97,6 +97,9 @@
 							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'staff'])}}">Create Staff</a>
 						</li>
 						<li>
+							<a href="{{route('registration',['id'=>$user['user_id'],'role'=>'outlet'])}}">Create Outlet</a>
+						</li>
+						<li>
 							<a href="{{route('privatevehicle',['id'=>$user['user_id'],'role'=>'privetvehicle'])}}">Private Vehicle</a>
 						</li>
 						<li>
@@ -267,7 +270,7 @@
 
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
 					<h3 class="text-center py-3">{{$role}} Details Form</h3>
-					<form method="post" action="{{route('senddetails',['role'=>$role])}}">
+					<form method="post" action="{{route('senddetails',['role'=>$role])}}" enctype="multipart/form-data">
 						@csrf
 						<div class="row">
 							<div class="col-lg-4 col-sm-12  my-2">
@@ -342,7 +345,7 @@
                                 	<option value="{{$user['user_id']}}">{{$vl}}</option>
                               
                                 	@endforeach
-                                	<option value="none">Not In List</option>
+                                	<option value="0">Not In List</option>
                                 </select>
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2" id="new_vill" style="display: none">
@@ -423,10 +426,6 @@
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Aadhar Document (PDF OR Photo)<span class="text-danger">*</span></label>
                                 <input type="file" class="form-control"   id="" name="aadhar_doc" required="" maxlength="30">
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Photo<span class="text-danger">*</span></label>
-                                <input type="file" class="form-control" name="photo" required="" maxlength="30">
                             </div>
                             <div class="col-12  my-2">
                                   <h5 class="my-3"><u>Society Details </u></h5>

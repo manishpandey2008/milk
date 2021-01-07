@@ -15,10 +15,12 @@ use DB;
 class RateChartController extends Controller
 {
 
-	public function rateChartForm($id){
-    	$users=Registration::all()->where('user_id',$id);
+	public function rateChartForm(){
+      $work=session('role_of_work');
+      $id=session('id_of_user');
+    	$users=Registration::all()->where('user_id',$id)->first();
     	return view('plant.rateChartForm',[
-    		'users'=>$users,
+    		'user'=>$users,
     		'user_id'=>$id,
             'error'=>0,
     	]);

@@ -50,14 +50,11 @@
 					</a>
 					<ul class="collapse list-unstyled show" id="nav-dashboard">
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Current Reports</a>
+							<a href="{{ route('farmer.home')}}">Current Reports</a>
 						</li>
 						<li>
-							<a href="{{ route('farmer.alldata',['plantId'=>$plant_id,'id'=>$user_id])}}">Total Milk Report</a>
+							<a href="{{ route('farmer.alldata')}}">Total Milk Report</a>
 						</li>
-						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Milk Notifiction</a>
-						</li> 
 					</ul>
 				</li>
 				<li >
@@ -66,7 +63,7 @@
 					</a>
 					<ul class="collapse list-unstyled " id="nav-patients">
 						<li>
-							<a href="{{ route('farmer.transition',['plantId'=>$plant_id,'id'=>$user_id])}}">All Payment</a>
+							<a href="{{ route('farmer.transition')}}">All Payment</a>
 						</li>
 						
 					</ul>
@@ -76,11 +73,12 @@
 						<span class="fa fa-shopping-cart"></span> Shope
 					</a>
 					<ul class="collapse list-unstyled " id="shop">
+						
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Shoping</a>
+							<a href="{{ route('farmer-order-list')}}">Order List</a>
 						</li>
 						<li>
-							<a href="{{ route('farmer.home',['id'=>$user_id])}}">Order List</a>
+							<a href="{{ route('farmer-order-new')}}">New Order</a>
 						</li>
 					</ul>
 				</li>
@@ -90,7 +88,7 @@
 					</a>
 					<ul class="collapse list-unstyled" id="nav-doctors">
 						<li>
-							<a href="{{ route('farmer.profile',['plantId'=>$plant_id,'id'=>$user_id])}}">Profile</a>
+							<a href="{{ route('farmer.profile')}}">Profile</a>
 						</li>
 						
 					</ul>

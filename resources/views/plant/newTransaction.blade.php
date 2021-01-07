@@ -26,7 +26,8 @@
 	<link rel="stylesheet" href="{{ asset('/css/css/jquery-jvectormap.css') }}">
 
 	<script src="{{ asset('/js/js/modernizr.min.js') }}"></script>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	 <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css"> -->
+	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 
 <body>
@@ -44,7 +45,6 @@
 				<a href="index.html"><img src="" class="logo" alt="logo"></a>
 			</div>
 			<ul class="list-unstyled components">
-				@foreach($users as $user)
 				<li >
 					<a href="#home" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-home"></span> Home
@@ -108,7 +108,7 @@
 						
 					</ul>
 				</li>
-				<li >
+				<li>
 					<a href="#root-master" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-road"></span> Root Master
 					</a>
@@ -122,11 +122,11 @@
 					</ul>
 				</li>
 				
-				<li class="active">
-					<a href="#rate-chart" data-toggle="collapse" aria-expanded="true">
+				<li >
+					<a href="#rate-chart" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-list"></span> Rate Chart
 					</a>
-					<ul class="collapse list-unstyled show" id="rate-chart">
+					<ul class="collapse list-unstyled " id="rate-chart">
 						<li>
 							<a href="{{route('ratechartlist',['id'=>$user['user_id']])}}">Current Reat Chart List</a>
 						</li>
@@ -136,11 +136,11 @@
 					</ul>
 				</li>
 				
-				<li>
-					<a href="#payment-management" data-toggle="collapse" aria-expanded="false">
+				<li class="active">
+					<a href="#payment-management" data-toggle="collapse" aria-expanded="true">
 						<span class="fa fa-money"></span> Account Management
 					</a>
-					<ul class="collapse list-unstyled" id="payment-management">
+					<ul class="collapse list-unstyled show" id="payment-management">
 						<li>
 							<a href="{{route('plant-allTransaction',['id'=>$user['user_id']])}}">All Transition List</a>
 						</li>
@@ -165,7 +165,7 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li >
 					<a href="#ec" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-shopping-cart"></span> E-commerce
 					</a>
@@ -190,7 +190,6 @@
 						</li>
 					</ul>
 				</li>
-				@endforeach
 				<li>
 					<a href="#profile" data-toggle="collapse" aria-expanded="false">
 						<span class="fa fa-user"></span> Your Profile
@@ -214,7 +213,6 @@
 					<div class="responsive-logo">
 						<a href="#"><img src class="logo" alt="logo"></a>
 					</div>
-					@foreach($users as $user)
 					<ul class="nav">
 						<li class="nav-item">
 							<span class="fa fa-bars" id="sidebarCollapse"></span>
@@ -240,7 +238,6 @@
 						</li>
 
 					</ul>
-					@endforeach
 				
 				</div>
 			</nav>
@@ -249,7 +246,7 @@
 			<!-- Page Title -->
 			<div class="row no-margin-padding">
 				<div class="col-md-6">
-					<h3 class="block-title">Rate Chart List</h3>
+					<h3 class="block-title">New Transaction</h3>
 				</div>
 				<div class="col-md-6">
 					<ol class="breadcrumb">
@@ -260,58 +257,77 @@
 				</div>
 			</div>
 
-			<div class="container-fluid home ">
-				<div class="row text-center">
-					<div class="col-md-4 col-sm-10 mx-auto ">
-						<div class="widget-area proclinic-box-shadow ">
-							<div class="widget-right">
-								<h3 class="wiget-title">PANDEY PLANT</h3>
-								<h4 class="wiget-title">( <strong>PLANT</strong> ) </h4>
-								<p>{{$user['user_id']}}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
+			<div class="container-fluid home">
 				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
-					<h3 class="text-center"><u>Rate Chart List</u></h3>
-					<div class="row">
-						<div class="col-lg-6 col-sm-12 mx-auto">
-							<div class="row">
-								<div class="col-6 my-2">
-									<select class="form-control" id="chart-name">
-										<option value="">--* Select One *--</option>
-										@foreach($chartList as $cl)
-										<option value="{{$cl}}">{{$cl}}</option>
-										@endforeach
-									</select>
-								</div>
-								<div class="col-6 my-2">
-									<button class="btn btn-primary" id="shart-show">Show Chart</button>
-								</div>
-							</div>
-						</div>
-					</div>
+					<h4 class="text-center py-3"><strong>New Transaction</strong></h4>
+					
 					<div style="width:100%;height: 2px;background-color: black"></div>
-					<div class="row">
-						<div class="col-12 mx-auto">
-							<p class="text-center"><u>A-Cortege Chart</u><br>(S : 30 AND F: 40 )<br>Uploading Date :20/10/1997 </p>
+					@if($msg != '0')
+					<div class="row" id="msg_show">
+						@if($type=='yes')
+						<div class="col-lg-8 col-sm-12 mx-auto my-2" style="background-color:rgb(137,226,188); border-radius: 5px;">
+							<h5 class="text-center py-2"><strong>Transaction Successfully</strong></h5>
 						</div>
-						<div class="table-responsive data-table">
-							
-
-							<!-- <a class="btn btn-primary">Update New</a> -->
+						@elseif($type=='no')
+						<div class="col-lg-8 col-sm-12 mx-auto my-2" style="background-color:rgb(252,112,120); border-radius: 5px; ">
+							<h5 class="text-center py-2"><strong>Transaction Not Successfully</strong></h5>
 						</div>
+						@endif
 					</div>
+					@endif
 
-					<div>
-						
-					</div>
+					<form method="post" action="{{route('plant-addTransaction',['id'=>$user['user_id']])}}">
+						@csrf
+						<div class="row">
+							<div class="col-lg-4 col-sm-10  my-2">
+							    <label>ID <span class="text-danger">*</span></label>
+							    <input type="text" class="form-control"  placeholder="Search ID" name="toId" id="toId"  required="" list="userlist">
+							    <datalist id="userlist">
+									@foreach($to_list as $tl)
+									     <option value="{{$tl['user_id']}}"></option>
+									@endforeach
+								</datalist>
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2">
+							    <label>Name<span class="text-danger">*</span></label>
+							    <input type="text" class="form-control" name="toName"  id="toName" required="" readonly="">
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2">
+							    <label>Role<span class="text-danger">*</span></label>
+							    <input type="text" class="form-control" name="toRole"  id="toRole" required="" readonly="">
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2">    
+							    <label>Transaction Amount<span class="text-danger">*</span></label>
+							    <input type="text" class="form-control"  placeholder="Transaction Amount" required=""  id="transactionAmount" pattern="[0-9]*" maxlength="10" name="transactionAmount">
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2" id="vill_list">
+							    <label>Transaction Type<span class="text-danger">*</span></label>
+							    <select class="form-control" required="" id="transactionType" name="transactionType">
+							    	<option value="">--* Select One *--</option>
+							    	<option value="online">Online</option>
+							    	<option value="cash">Cash</option>
+							    	<option value="bank">Bank Acount</option>
+							    </select>
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2">    
+							    <label>Transaction Message <span class="text-danger">*</span></label>
+							    <input type="text" class="form-control"  placeholder="Enter Transaction Message" required=""  id="transactionMessage" name="transactionMessage" pattern="[a-zA-Z0-9\s]*" maxlength="100">
+							</div>
+							<div class="col-lg-4 col-sm-10  my-2">    
+							    <label>Transaction Photo</label>
+							    <input type="file" class="form-control"   id="transactionPhoto" name="transactionPhoto">
+							</div>
+							<div class="col-lg-12  my-2">
+    							<button type="submit" class="btn btn-primary mx-auto"   style="cursor: pointer;">Submit</button>
+    						</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="row">
 					
 				</div>
-				<div class="container-fluid widget-area proclinic-box-shadow color-green my-3">
-					
-				</div>
+
 				<div class="container-fluid my-3 widget-area ">
 					<div class="row footer">
 						<div class="col-12 text-center my-5">
@@ -333,32 +349,34 @@
 	</a>
 	<!-- /Back to Top -->
 	{{csrf_field()}}
-	<!-- Jquery Library-->
-	<script src="{{ asset('/js/js/jquery-3.2.1.min.js') }}"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- Popper Library-->
 	<script src="{{ asset('/js/js/popper.min.js') }}"></script>
 	<!-- Bootstrap Library-->
 	<script src="{{ asset('/js/js/bootstrap.min.js') }}"></script>
 	<!-- morris charts -->
-	<script src="{{ asset('/js/charts/js/raphael-min.js') }}"></script>
-	<!-- <script src="{{ asset('/js/js/modernizr.min.js') }}../charts/js/morris.min.js"></script> -->
 	<script src="{{ asset('/js/js/custom-morris.js') }}"></script>
-
+	<!-- yajra table CDN --> 
+	<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 	<!-- Custom Script-->
 	<script src="{{ asset('/js/js/custom.js') }}"></script>
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
 
+	<script src="{{ asset('/js/js/dairy.js') }}"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			$(document).on('click','#shart-show',function(){
-				var dispId=$('#chart-name').val();
-				
-				$.post('{{ route("oneratechartlist")}}',{'data':dispId,'_token':$('input[name=_token]').val()},function(data){
+		$(document).ready(function(event){
+			$(document).on('change','#toId',function(event){
+				 var toId=$('#toId').val();
+				$.post('{{ route("plant-getUserData")}}',{'data':toId,'_token':$('input[name=_token]').val()},function(data){
+						$('#toName').val(data['name']);
+						$('#toRole').val(data['role']);
 
-					$('.data-table').html(data);
     			});
 
-			});
+			})
+			$('#msg_show').show();
+			setTimeout(function(){$('#msg_show').hide();}, 5000);
 		});
 	</script>
 </body>

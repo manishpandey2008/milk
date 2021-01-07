@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$('#vill_name').on('click',function(){
 		var vill_name=$(this).val();
-		if(vill_name!='none')
+		if(vill_name!='0')
 		{
 			$('#new_vill').hide();
 		}

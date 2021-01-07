@@ -22,8 +22,10 @@ class CreateTransactiondetailsTable extends Migration
             $table->string('transaction_to',30);
             $table->string('transaction_to_id',30);
             $table->string('transaction_amount',10);
-            $table->string('transaction_status',20);
             $table->string('transaction_msg');
+            $table->string('transaction_type',10);
+            $table->string('transaction_to_status',10)->nullable();
+            $table->string('transaction_photo')->nullable();
             $table->timestamps();
         });
     }

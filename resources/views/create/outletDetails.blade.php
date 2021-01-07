@@ -244,7 +244,7 @@
 			
 			<div class="row no-margin-padding">
 				<div class="col-md-6">
-					<h3 class="block-title">Add Staff </h3>
+					<h3 class="block-title">Add Society </h3>
 				</div>
 				<div class="col-md-6">
 					<ol class="breadcrumb">
@@ -259,97 +259,117 @@
 					<div class="col-md-4 col-sm-10 mx-auto ">
 						<div class="widget-area proclinic-box-shadow ">
 							<div class="widget-right">
-								<h2 class="wiget-title"> <strong>STAFF</strong> </h2>
+								
+								<h2 class="wiget-title"><strong>SOCIETY</strong>  </h2>
 								<p>{{$create_user_id}}</p>
 								
 							</div>
 						</div>
 					</div>
 				</div>
-	<div class="container-fluid widget-area proclinic-box-shadow  my-3">
-					<h3 class="text-center py-3">Staff Details Form</h3>
-					<form method="post" action="{{route('senddetails',['role'=>$role])}}" enctype="multipart/form-data">
+
+				<div class="container-fluid widget-area proclinic-box-shadow  my-3">
+					<h3 class="text-center py-3">{{$role}} Details Form</h3>
+					<form method="post" action="{{route('senddetails',['role'=>$role])}}">
 						@csrf
 						<div class="row">
 							<div class="col-lg-4 col-sm-12  my-2">
-			                  <label>User ID<span class="text-danger">*</span></label>
-			                    <input type="text" class="form-control" value="{{$create_user_id}}" readonly="" name="createId" required="">
+			                  <label>Plant ID <span class="text-danger">*</span></label>
+			                    <input type="text" class="form-control" value="{{$user_id}}" readonly="" name="plant_id">
 			                </div>
-    						<div class="col-lg-4 col-sm-10  my-2">
-    							<label>Plant ID<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="{{$user_id}}" required="" readonly="" name="plantId">
-    						</div>
+			                <div class="col-lg-4 col-sm-10  my-2">
+                                <label>BMC ID<span class="text-danger">*</span></label>
+                                <select class="form-control" name="bmc_id" required="">
+                                	<option value="">--* Select One *--</option>
+                                	@foreach($users as $user)
+                                	@if($user['working_role']=='bmc')
+                                	<option value="{{$user['user_id']}}">{{$user['user_id']}}</option>
+                                	@endif
+                                	@endforeach
+                                	<option value="none">Not Attatch With BMC</option>
+                                </select>
+                            </div>
+							
+			               <div class="col-lg-4 col-sm-12  my-2">
+			                  <label>Outlet ID<span class="text-danger">*</span></label>
+			                    <input type="text" class="form-control" value="{{$create_user_id}}" readonly="" name="outlet_id" >
+			                </div>
+                            <div class="col-lg-4 col-sm-12  my-2">
+			                  <label>Outlet Name<span class="text-danger">*</span></label>
+			                    <input type="text" class="form-control" placeholder="Enter Society Name"   name="outlet_name" required="" pattern="[a-zA-Z\s]*" maxlength="30">
+			                </div>
+
                             <div class="col-12  my-2">
                                   <h5 class="my-3"><u>Personal Information</u></h5>
                             </div>
-                          
-                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Staff Name in Hindi </label>
-                                <input type="text" class="form-control"  placeholder="Enter Name In Hindi" name="nameHindi">
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">    
-                                <label>Father Name in English <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control"  placeholder="Enter Father Name" required="" pattern="[a-zA-Z\s]*" title="Max Length Of String is 30" name="fatherNameInEnglish" maxlength="30">
-                            </div>
-                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Father Name in Hindi </label>
-                                <input type="text" class="form-control"  placeholder="Enter Father Name In Hindi" name="fatherNameInHindi">
-                            </div>
-                            
                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label> Gender <span class="text-danger">*</span></label>
-                                <select class="form-control" name="gender" required="">
-                                	<option value="">--* Select One *--</option>
-                                	<option value="male">Male</option>
-                                	<option value="female">Female</option>
-                                	<option value="other">other</option>
-                                </select>
+                                <label>Name in Hindi</label>
+                                <input type="text" class="form-control"  id="name" name="name_in_hindi" >
                             </div>
-                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Date Of Birth <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" placeholder="Enter Date of Birth "  required="" name="dob">
+                          	
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Father Name In English <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control"  placeholder="Enter Father Name" required="" pattern="[a-zA-Z\s]*" title="Max Length Of String is 30" name="father_name" maxlength="30">
                             </div>
-                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Anniversary Date </label>
-                                <input type="date" class="form-control"  name="anniversaryDate">
-                            </div>
-                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Emergency Contact No<span class="text-danger">*</span></label>
-                                 <input type="tel" class="form-control" id="emergencyphone" name="emergencyphone" placeholder="123-45-00-678" pattern="[0-9]{10}"   title="Enter Only 10 Numeric Val">
-                               <!--   [9-8]{7}-[6-5]{4}-[3-2]{1} -->
-                               
-                            </div>
-                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label> Blood Group  </label>
-                                <input type="text" class="form-control"  placeholder="Enter blood Group"  pattern="[a-zA-Z\s]*" title="Max Length Of String is 30" name="bloodGroup" maxlength="20">
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                
+                                <label>Father Name In Hindi</label>
+                                <input type="text" class="form-control"  placeholder="Enter Father Name In Hindi"   name="father_name_hindi">
+                                
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2" id="vill_list">
                                 <label>Village Name<span class="text-danger">*</span></label>
                                 <select class="form-control" name="village" id="vill_name" required="">
                                 	<option value="">--* Select One *--</option>
                                 	@foreach($village_list as $vl)
-                                	<option value="{{$vl}}">{{$vl}}</option>
+                                	
+                                	<option value="{{$user['user_id']}}">{{$vl}}</option>
+                              
                                 	@endforeach
                                 	<option value="none">Not In List</option>
                                 </select>
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2" id="new_vill" style="display: none">
-                                <label>New Village Name<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="Enter New Village Name" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" name="newVillage" maxlength="30">
-                                
+                                <label>New Village Name</label>
+                                <input type="text" class="form-control" placeholder="Enter New Village Name" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" name="new_village" maxlength="50">
+                             
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Full Address<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="Enter Full Address"  required="" name="address" maxlength="50">
-                              
+                                <input type="text" class="form-control" placeholder="Enter Full Address"  required="" name="full_address" maxlength="100">
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Pin Code<span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" placeholder="Enter Pin Code "  required="" name="pinCode" pattern="[0-9]{6}">
+                                <input type="text" class="form-control" placeholder="Enter Pin Code "  required="" pattern="[0-9]{6}" name="pin_code">
+                            </div>
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Gender<span class="text-danger">*</span></label>
+                                <select class="form-control" name="gender_name" required="">
+                                	<option value="">--* Select One *--</option>
+                                	<option value="male">Male</option>
+                                	<option value="female">Female</option>
+                                	<option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Date Of Birth<span class="text-danger">*</span></label>
+                                <input type="date" class="form-control"   name="dob">
+                            </div>
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Anniversary Date</label>
+                                <input type="date" class="form-control"  name="anniversaryDate">
+                            </div>
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Emergency Contact Number</label>
+                                <input type="text" class="form-control"  name="emergencyContactNumber"  placeholder="Enter Emergency Contact Number" pattern="[0-9]{10}" title="Enter Only 10 Numeric Val">
+                            </div>
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Blood Group</label>
+                                <input type="text" class="form-control"  name="bloodGroup" placeholder="Enter Blood Group" maxlength="5">
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Type Of Opening Balance<span class="text-danger">*</span></label>
-                                <select class="form-control" name="openBalType" required="">
+                                <select class="form-control" name="open_bal_type" required="">
                                 	<option value="">--* Select One *--</option>
                                 	<option value="credit">Credit</option>
                                 	<option value="debit">Debit</option>
@@ -357,102 +377,41 @@
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Opening Amount<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="Enter Opening Amount"  required="" min="0" pattern="[0-9]*" title="Enter Only Numeric Val" name="openingAmount" maxlength="10">
+                                <input type="text" class="form-control" placeholder="Enter Opening Amount"  required="" min="0" pattern="[0-9]*" title="Enter Only Numeric Val" name="opening_amount" maxlength="10">
                             </div>
 
-
-                            <div class="col-12  my-2">
-                                  <h5 class="my-3"><u>Role In Plant</u></h5>
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">
-                                <label> Designation <span class="text-danger">*</span></label>
-                                <select class="form-control" required="" name="designation" id="designation">
-                                	<option value="">--* Select One *--</option>
-                                	<option value="driver">Driver</option>
-                                	<option value="p1">Post2</option>
-                                	<option value="p2">Post3</option>
-                                </select>
-                            </div>
-                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label> Department <span class="text-danger">*</span></label>
-                                <select class="form-control" required="" name="department" id="department">
-                                	<option value="">--* Select One *--</option>
-                                	<option value="male">Department1</option>
-                                	<option value="female">Department2</option>
-                                	<option value="other">Department3</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-12 col-sm-12  my-2">
-                                <label class="mx-auto">Working Day in Weeek   <span class="text-danger">*</span></label>
-								<label class="mx-2"><input type="checkbox"  id="mon" name="days[]" value="mon"> Mon</label>
-								<label class="mx-2"><input type="checkbox"  id="tue" name="days[]" value="tue"> Tue </label>
-								<label class="mx-2"><input type="checkbox"  id="wed" name="days[]" value="wed"> Wed </label>
-								<label class="mx-2"><input type="checkbox"  id="thu" name="days[]" value="thu"> Thu </label>
-								<label class="mx-2"><input type="checkbox"  id="fri" name="days[]" value="fri"> Fri </label>
-								<label class="mx-2"><input type="checkbox"  id="sat" name="days[]" value="sat"> Sat </label>
-								<label class="mx-2"><input type="checkbox"  id="sun" name="days[]" value="sun"> Sun </label>
-                            </div>
-
-                            <div class="col-12  my-2">
-                                  <h5 class="my-3"><u>Personal Documents</u></h5>
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">    
-                                <label> Aadhar No  <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control"  placeholder="Enter Aadhar Card No" required="" pattern="[0-9]{12}" title="Max Length Of numeric is 12" required="" name="aadharNumber">
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Upload Aadhar Card<span class="text-danger">*</span></label>
-                                <input type="file" class="form-control"  required="" name="aadharDoc">
-                            </div>
-                             <div class="col-lg-4 col-sm-10  my-2">    
-                                <label>Pan Card No </label>
-                                <input type="text" class="form-control"  placeholder="Enter Pan Card No" pattern="[0-9A-Z\s]*" title="Max Length Of String is 30" name="panNumber" maxlength="30">
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Upload Pan Card</label>
-                                <input type="file" class="form-control"   name="panDoc">
-                            </div>
-                              <div class="col-lg-4 col-sm-10  my-2">    
-                                <label>Driving Licence  No <span class="text-danger driver" style="display: none">*</span></label>
-                                <input type="text" class="form-control licence"  placeholder="Enter Driving Licence  No" name="drivingLicenceNumber" pattern="[a-zA-Z0-9\s]*" maxlength="20">
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Upload Driving Licence <span class="text-danger driver" style="display: none">*</span></label>
-                                <input type="file" class="form-control licence" placeholder="Upload Aadhar pdf " name="drivingLicenceDoc">
-                            </div>
-                             <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Issue Date Of Driving Licence <span class="text-danger driver" style="display: none">*</span></label>
-                                <input type="date" class="form-control licence"  name="licenceIssueDate" >
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Expiry Date Of Driving Licence <span class="text-danger driver" style="display: none">*</span></label>
-                                <input type="date" class="form-control licence"  name="licenceExpiryDate">
-                            </div>
-                            <div class="col-lg-4 col-sm-10  my-2">
-                                <label>Medical Certificate </label>
-                                <input type="file" class="form-control" placeholder="Enter Date of Birth "  name="medicalCft">
-                            </div>
                             <div class="col-12  my-2">
                                   <h5 class="my-3"><u>Bank Detail And Documents</u></h5>
                             </div>
 
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Payee Name<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="Enter Payee Name" required="" pattern="[a-zA-Z\s]*" title="Max Length Of String is 30" name="payeeName" maxlength="30">
+                                <input type="text" class="form-control" placeholder="Enter Payee Name" required="" pattern="[a-zA-Z\s]*" title="Max Length Of String is 30" name="payee_name" maxlength="30">
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Bank Name<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="Enter Bank Name"  required="" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" name="bankName" maxlength="30">
+                                <input type="text" class="form-control" placeholder="Enter Bank Name"  required="" pattern="[a-zA-Z\s]*" title="Max Length Of String is 50" name="bank_name" maxlength="30">
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>Acount Number<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="Enter Acount Number"  required="" pattern="[0-9]*" title="Enter only numeric val" name="actNumber" maxlength="20">
+                                <input type="text" class="form-control" placeholder="Enter Acount Number"  required="" pattern="[0-9]*" title="Enter only numeric val" name="act_number" maxlength="30">
                             </div>
                             <div class="col-lg-4 col-sm-10  my-2">
                                 <label>IFSC Code<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="Enter Bank IFSC Code"  required="" pattern="[a-zA-Z0-9]*" title="Max Length Of String is 30" name="ifscNumber" maxlength="20">
+                                <input type="text" class="form-control" placeholder="Enter Bank IFSC Code"  required="" pattern="[a-zA-Z0-9]*" title="Max Length Of String is 30" name="ifsc_code">
                             </div>
-                            
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Aadhar Number<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Aadhar Number"  required="" pattern="[0-9]{12}" title="Length Of numeric is 12" name="aadhar_number">
+                            </div>
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Aadhar Document (PDF OR Photo)<span class="text-danger">*</span></label>
+                                <input type="file" class="form-control"   id="" name="aadhar_doc" required="" maxlength="30">
+                            </div>
+                            <div class="col-lg-4 col-sm-10  my-2">
+                                <label>Photo<span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" name="photo" required="" maxlength="30">
+                            </div>
     						<div class="col-lg-12  my-2">
     							<button class="btn btn-primary mx-auto"  id="resiter_btn" name="register" style="cursor: pointer;">Submit </button>
     						</div>
@@ -461,7 +420,15 @@
 					
 				</div>
 				<div class="container-fluid widget-area proclinic-box-shadow color-green my-3">
-					
+					@if ($errors->any())
+					    <div class="alert alert-danger">
+					        <ul>
+					            @foreach ($errors->all() as $error)
+					                <li>{{ $error }}</li>
+					            @endforeach
+					        </ul>
+					    </div>
+					@endif
 				</div>
 			
 				<div class="container-fluid my-3 widget-area ">
@@ -500,22 +467,5 @@
 	<script src="{{ asset('/js/js/custom.js') }}"></script>
 	<script src="{{ asset('/js/js/farmer-dasbord.js') }}"></script>
 	<script src="{{ asset('/js/js/dairy.js') }}"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$(document).on('change','#designation',function(){
-
-		        var x=$('#designation').val();
-		        if(x=='driver'){
-		            $('.driver').show();
-		            $('.licence').attr('required',true);
-		        }
-		        else{
-		        	$('.driver').hide();
-		            $('.licence').attr('required',false);
-		        }
-
-		    });
-		})
-	</script>
 </body>
 </html>

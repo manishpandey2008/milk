@@ -13,11 +13,12 @@ use App\Models\Model\Plant\Plantproducts;
 use App\Models\Model\Society\Orderdetails;
 
 use DB;
-
+use Validator;
 class PlantProductController extends Controller
 {
-    public function AddNewProduct($id)
+    public function AddNewProduct()
     {
+        $id=session('id_of_user');
     	$users=Registration::all()->where('user_id',$id)->first();
 
     	return view('plant.addNewProduct',[
@@ -25,37 +26,67 @@ class PlantProductController extends Controller
      	]);
     }
 
-    public function AddProduct()
+    public function AddProduct(Request $request)
     {  
-    	$data=request('data');
+        $rules=[
+                'productName'=>'required|max:30',
+                'shortProductName'=>'required|max:20',
+                'productType'=>'required|max:20',
+                'productUnit'=>'required|max:20',
+                'productAmount'=>'required|max:10',
+                'productPrice'=>'required|max:10',
+                'productOffer'=>'required|max:10',
+                'productPhoto'=>'required|mimes:jpeg,bmp,png|max:4000',
+                '_token'=>'required',
+                ];
+
+      $validator=Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            return response()->json( $validator->errors(),400);
+      }
+
+      if ($request->hasfile('productPhoto')) {
+            $file=$request->file('productPhoto');
+            $extention=$file->getClientOriginalExtension();
+            $fileName=time().'.'.$extention;
+            $file->move('storage/product_photo/',$fileName);
+        }
+
+
+        $id=session('id_of_user');
+
     	$product=new Plantproducts;
-    	$product->plant_id='plant001';
+
+    	$product->plant_id=$id;
     	$count=Plantproducts::all()->count();
     	$product->product_id='product'.($count+1);;
 		
-    	$product->product_name=$data['productName'];
+    	$product->product_name=$request->productName;
 
-    	$name=Plantproducts::all()->where('product_name',$data['productName'])->count();
+    	$name=Plantproducts::all()->where('product_name',$product->product_name)->count();
     	if($name){
-    		return 0;
+            $msg=$product->product_name.' Present In Database';
+    		return redirect()->route('plant.addproduct')->with('msg',$msg);
     	}
-    	$product->product_short_name=$data['shortProductName'];
-    	$product->product_type=$data['productType'];
-    	$product->product_unit=$data['productUnit'];
-    	$product->product_stock=$data['productAmount'];
-    	$product->product_price=$data['productPrice'];
-    	$product->product_offer=$data['productOffer'];
-    	$product->product_photo=$data['productPhoto'];
-
+    	$product->product_short_name=$request->shortProductName;
+    	$product->product_type=$request->productType;
+    	$product->product_unit=$request->productUnit;
+    	$product->product_stock=$request->productAmount;
+    	$product->product_price=$request->productPrice;
+    	$product->product_offer=$request->productOffer;
+    	$product->product_photo=$fileName;
+        $product->remember_token=$request->_token;
     	$x=$product->save();
 
     	if ($x){
-    		return 1;
+            $msg=$product->product_name.' Add In Database';
+    		return redirect()->route('plant.addproduct')->with('msg',$msg);
     	}
     }
 
-    public function ProductList($id)
+    public function ProductList(Request $request)
     {
+        $id=session('id_of_user');
     	$product=Plantproducts::all()->where('plant_id',$id);
     	$users=Registration::all()->where('user_id',$id)->first();
     	return view('plant.productList',[
@@ -64,7 +95,7 @@ class PlantProductController extends Controller
      	]);
     }
 
-    public function ProductData()
+    public function ProductData(Request $request)
     {
     	$product_id=request('product_id');
     	$data=Plantproducts::all()->where('product_id',$product_id)->first();
@@ -72,8 +103,26 @@ class PlantProductController extends Controller
     	return $data;
     }
 
-    public function EditProduct()
+    public function EditProduct(Request $request)
     {
+        $rules=[
+                'productId'=>'required|max:30',
+                'productName'=>'required|max:30',
+                'shortProductName'=>'required|max:20',
+                'productType'=>'required|max:20',
+                'productUnit'=>'required|max:20',
+                'productAmount'=>'required|max:10',
+                'productPrice'=>'required|max:10',
+                'productOffer'=>'required|max:10',
+                '_token'=>'required',
+                ];
+
+      $validator=Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            return response()->json( $validator->errors(),400);
+      }
+
+        
     	$update_data=[
 		    	'product_name'=>request('productName'),
 		    	'product_short_name'=>request('shortProductName'),
@@ -82,7 +131,6 @@ class PlantProductController extends Controller
 		    	'product_stock'=>request('productAmount'),
 		    	'product_price'=>request('productPrice'),
 		    	'product_offer'=>request('productOffer'),
-		    	'product_photo'=>request('productPhoto'),
     	];
 
     	$x=DB::table('plantproducts')
@@ -99,7 +147,7 @@ class PlantProductController extends Controller
     
     }
 
-    public function DeleteProduct()
+    public function DeleteProduct(Request $request)
     {
     		$product_id=request('d_productId');
 
@@ -114,8 +162,19 @@ class PlantProductController extends Controller
         }
     }
 
-    public function AddAmount()
+    public function AddAmount(Request $request)
     {
+        $rules=[
+                'a_productId'=>'required|max:20',
+                'a_productName'=>'required|max:30',
+                'a_productAmount'=>'required|max:10',
+                'a_add_stock'=>'required|max:10',
+                ];
+
+      $validator=Validator::make($request->all(),$rules);
+        if ($validator->fails()) {
+            return response()->json( $validator->errors(),400);
+      }
     		$product_id=request('a_productId');
     		$old_stock=request('a_productAmount');
     		$add_stock=request('a_add_stock');
